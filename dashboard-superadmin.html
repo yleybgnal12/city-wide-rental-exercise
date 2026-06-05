@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Super Admin Dashboard - CityWide Rental</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="dashboard.css" />
+    <style>
+      .super-admin-badge {
+        background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: 700;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-mini">
+          <img src="logoye(1).png" alt="Logo" class="logo-img" />
+        </div>
+        <div class="logo-full d-none d-md-block">
+          <h5 class="mb-0">
+            CityWide <span style="color: #ff6b6b">SUPER</span>
+          </h5>
+        </div>
+        <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="#" class="menu-item active" data-page="dashboard">
+          <i class="fas fa-chart-line"></i>
+          <span>Super Dashboard</span>
+        </a>
+        <a href="#" class="menu-item" data-page="system">
+          <i class="fas fa-server"></i>
+          <span>System Management</span>
+        </a>
+        <a href="#" class="menu-item" data-page="admins">
+          <i class="fas fa-shield-alt"></i>
+          <span>Admin Management</span>
+        </a>
+        <a href="#" class="menu-item" data-page="assets">
+          <i class="fas fa-box"></i>
+          <span>Global Assets</span>
+        </a>
+        <a href="#" class="menu-item" data-page="users">
+          <i class="fas fa-users"></i>
+          <span>All Users</span>
+        </a>
+        <a href="#" class="menu-item" data-page="disputes">
+          <i class="fas fa-gavel"></i>
+          <span>Disputes & Claims</span>
+        </a>
+        <a href="#" class="menu-item" data-page="analytics">
+          <i class="fas fa-chart-bar"></i>
+          <span>Advanced Analytics</span>
+        </a>
+        <a href="#" class="menu-item" data-page="profile">
+          <i class="fas fa-user-circle"></i>
+          <span>Profile</span>
+        </a>
+        <a href="#" class="menu-item" data-page="finance">
+          <i class="fas fa-dollar-sign"></i>
+          <span>Finance & Reports</span>
+        </a>
+        <hr class="sidebar-divider" />
+        <a href="#" class="menu-item" data-page="security">
+          <i class="fas fa-lock"></i>
+          <span>Security & Logs</span>
+        </a>
+        <a href="#" class="menu-item" data-page="settings">
+          <i class="fas fa-cog"></i>
+          <span>System Settings</span>
+        </a>
+        <a href="ma.html" class="menu-item">
+          <i class="fas fa-arrow-left"></i>
+          <span>Back to Home</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="top-navbar">
+        <div class="navbar-left">
+          <button class="sidebar-btn d-md-none" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h4 class="page-title">
+            <span class="super-admin-badge">SUPER ADMIN</span> Master Dashboard
+          </h4>
+        </div>
+
+        <div class="navbar-center">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              placeholder="Search anything on platform..."
+              class="search-input"
+            />
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <div class="lang-selector">
+            <select id="lang-select" class="lang-select">
+              <option value="en" data-i18n="english">English</option>
+              <option value="am" data-i18n="amharic">አማርኛ</option>
+            </select>
+          </div>
+          <div class="theme-toggle">
+            <button
+              id="theme-toggle-btn"
+              class="theme-toggle-btn"
+              type="button"
+              aria-label="Toggle theme"
+            >
+              <i class="fas fa-moon"></i>
+              <span class="theme-label">Theme</span>
+            </button>
+          </div>
+
+          <div class="notification-bell">
+            <button class="notification-btn">
+              <i class="fas fa-bell"></i>
+              <span class="notification-badge">8</span>
+            </button>
+            <div class="notification-dropdown">
+              <div class="notification-item">
+                <i class="fas fa-exclamation-triangle text-danger"></i>
+                <div>
+                  <p>Critical: Unusual activity detected</p>
+                  <small>Just now</small>
+                </div>
+              </div>
+              <div class="notification-item">
+                <i class="fas fa-user-slash text-danger"></i>
+                <div>
+                  <p>Suspicious account flagged</p>
+                  <small>2 minutes ago</small>
+                </div>
+              </div>
+              <div class="notification-item">
+                <i class="fas fa-server text-warning"></i>
+                <div>
+                  <p>Database backup completed</p>
+                  <small>1 hour ago</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-profile">
+            <button class="profile-btn" data-bs-toggle="dropdown">
+              <img
+                src="https://api.dicebear.com/7.x/avataaars/svg?seed=SuperAdmin"
+                alt="User"
+                class="profile-pic"
+              />
+              <span id="profile-name" class="profile-name">User</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><i class="fas fa-user-circle"></i> My Profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><i class="fas fa-cog"></i> Preferences</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><i class="fas fa-key"></i> Security</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="ma.html"
+                  onclick="sessionStorage.clear()"
+                  ><i class="fas fa-sign-out-alt"></i> Logout</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <!-- KPI Cards Row - Extended -->
+        <section class="kpi-section">
+          <h5 class="section-title">System Overview & Key Metrics</h5>
+          <div class="row g-3 mb-4">
+            <div class="col-12 col-md-6 col-lg-2-4">
+              <div class="kpi-card">
+                <div class="kpi-header">
+                  <h6 class="kpi-label">Total Platform Revenue</h6>
+                  <span class="kpi-trend up"
+                    ><i class="fas fa-arrow-up"></i> 24.3%</span
+                  >
+                </div>
+                <p class="kpi-value">8,245,750 Br</p>
+                <p class="kpi-subtitle">All time</p>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2-4">
+              <div class="kpi-card">
+                <div class="kpi-header">
+                  <h6 class="kpi-label">Total Transactions</h6>
+                  <span class="kpi-trend up"
+                    ><i class="fas fa-arrow-up"></i> 15.8%</span
+                  >
+                </div>
+                <p class="kpi-value">4,528</p>
+                <p class="kpi-subtitle">Completed</p>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2-4">
+              <div class="kpi-card">
+                <div class="kpi-header">
+                  <h6 class="kpi-label">Active Users</h6>
+                  <span class="kpi-trend up"
+                    ><i class="fas fa-arrow-up"></i> 32.1%</span
+                  >
+                </div>
+                <p class="kpi-value">3,247</p>
+                <p class="kpi-subtitle">Right now online</p>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2-4">
+              <div class="kpi-card">
+                <div class="kpi-header">
+                  <h6 class="kpi-label">Total Assets</h6>
+                  <span class="kpi-trend down"
+                    ><i class="fas fa-arrow-down"></i> 0.3%</span
+                  >
+                </div>
+                <p class="kpi-value">5,624</p>
+                <p class="kpi-subtitle">Platform wide</p>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-2-4">
+              <div class="kpi-card">
+                <div class="kpi-header">
+                  <h6 class="kpi-label">Support Tickets</h6>
+                  <span class="kpi-trend up"
+                    ><i class="fas fa-arrow-up"></i> 5.2%</span
+                  >
+                </div>
+                <p class="kpi-value">142</p>
+                <p class="kpi-subtitle">Pending review</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Main Split Layout -->
+        <div class="row g-3">
+          <!-- Left/Main Side -->
+          <div class="col-12 col-lg-8">
+            <!-- Platform Growth Chart -->
+            <section class="content-card">
+              <div class="card-header">
+                <h5>Platform Growth Analytics</h5>
+                <div class="chart-controls">
+                  <button class="chart-btn active">Year to Date</button>
+                  <button class="chart-btn">Last 12 Months</button>
+                  <button class="chart-btn">5 Years</button>
+                </div>
+              </div>
+              <div class="chart-placeholder">
+                <div class="chart-bars">
+                  <div class="bar" style="height: 25%"></div>
+                  <div class="bar" style="height: 42%"></div>
+                  <div class="bar" style="height: 38%"></div>
+                  <div class="bar" style="height: 58%"></div>
+                  <div class="bar" style="height: 65%"></div>
+                  <div class="bar" style="height: 75%"></div>
+                  <div class="bar" style="height: 95%"></div>
+                </div>
+                <p class="chart-subtitle">Revenue Growth (in Millions Birr)</p>
+              </div>
+            </section>
+
+            <!-- All Transactions -->
+            <section class="content-card mt-3">
+              <div class="card-header">
+                <h5>System-Wide Transactions</h5>
+                <a href="#" class="view-all">View All</a>
+              </div>
+              <div class="table-responsive">
+                <table class="transaction-table">
+                  <thead>
+                    <tr>
+                      <th>Transaction ID</th>
+                      <th>Type</th>
+                      <th>User</th>
+                      <th>Date</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>#TXN-20260603-8734</td>
+                      <td>Rental Payment</td>
+                      <td>Abebe K.</td>
+                      <td>June 3, 2026</td>
+                      <td>5,500 Br</td>
+                      <td>
+                        <span class="status-badge completed">Confirmed</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>#TXN-20260603-8735</td>
+                      <td>Payout</td>
+                      <td>Owner User</td>
+                      <td>June 3, 2026</td>
+                      <td>45,000 Br</td>
+                      <td>
+                        <span class="status-badge completed">Completed</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>#TXN-20260602-8736</td>
+                      <td>Rental Payment</td>
+                      <td>Marta T.</td>
+                      <td>June 2, 2026</td>
+                      <td>3,200 Br</td>
+                      <td>
+                        <span class="status-badge completed">Confirmed</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>#TXN-20260602-8737</td>
+                      <td>Refund</td>
+                      <td>Hirut S.</td>
+                      <td>June 1, 2026</td>
+                      <td>-2,800 Br</td>
+                      <td>
+                        <span class="status-badge pending">Processing</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <!-- Right Side -->
+          <div class="col-12 col-lg-4">
+            <!-- Critical Alerts -->
+            <section class="content-card">
+              <div class="card-header">
+                <h5 style="color: #ff6b6b">
+                  <i class="fas fa-exclamation-circle"></i> Critical Alerts
+                </h5>
+              </div>
+              <div class="logs-section">
+                <div class="log-item">
+                  <span class="log-time" style="color: #ff6b6b">🔴</span>
+                  <p class="log-text">Suspicious activity: 3 accounts</p>
+                </div>
+                <div class="log-item">
+                  <span class="log-time" style="color: #ff6b6b">🔴</span>
+                  <p class="log-text">High chargeback rate detected</p>
+                </div>
+                <div class="log-item">
+                  <span class="log-time" style="color: #ffc107">🟡</span>
+                  <p class="log-text">Server load at 78%</p>
+                </div>
+                <div class="log-item">
+                  <span class="log-time" style="color: #ffc107">🟡</span>
+                  <p class="log-text">Database growth: +5GB</p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Admin Management -->
+            <section class="content-card mt-3">
+              <div class="card-header">
+                <h5>Admin Team</h5>
+              </div>
+              <div class="asset-list">
+                <div class="asset-item">
+                  <div class="asset-icon">👤</div>
+                  <div class="asset-info">
+                    <h6>Admin #1 - Revenue</h6>
+                    <p class="asset-count">Online - Last seen now</p>
+                  </div>
+                </div>
+                <div class="asset-item">
+                  <div class="asset-icon">👤</div>
+                  <div class="asset-info">
+                    <h6>Admin #2 - Users</h6>
+                    <p class="asset-count">Online - Last seen 5m ago</p>
+                  </div>
+                </div>
+                <div class="asset-item">
+                  <div class="asset-icon">👤</div>
+                  <div class="asset-info">
+                    <h6>Admin #3 - Assets</h6>
+                    <p class="asset-count">Offline - Last seen 2h ago</p>
+                  </div>
+                </div>
+              </div>
+              <button class="action-btn" style="width: 100%; margin-top: 15px">
+                <i class="fas fa-plus"></i> Add New Admin
+              </button>
+            </section>
+
+            <!-- System Health -->
+            <section class="content-card mt-3">
+              <div class="card-header">
+                <h5>System Infrastructure</h5>
+              </div>
+              <div class="health-section">
+                <div class="health-item">
+                  <div class="health-label">
+                    <span>Primary Server</span>
+                    <span class="health-status active"
+                      ><i class="fas fa-circle"></i> Healthy</span
+                    >
+                  </div>
+                </div>
+                <div class="health-item">
+                  <div class="health-label">
+                    <span>Database</span>
+                    <span class="health-value">95% Capacity</span>
+                  </div>
+                  <div class="health-bar">
+                    <div
+                      class="health-progress"
+                      style="
+                        width: 95%;
+                        background: linear-gradient(90deg, #ffc107, #ff6b6b);
+                      "
+                    ></div>
+                  </div>
+                </div>
+                <div class="health-item">
+                  <div class="health-label">
+                    <span>API Servers</span>
+                    <span class="health-value">4/4 Active</span>
+                  </div>
+                  <div class="health-bar">
+                    <div class="health-progress" style="width: 100%"></div>
+                  </div>
+                </div>
+                <div class="health-item">
+                  <div class="health-label">
+                    <span>Backup Status</span>
+                    <span class="health-status active"
+                      ><i class="fas fa-circle"></i> Complete</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+        <!-- Page Sections -->
+        <section id="section-profile" class="page-section content-card hidden">
+          <div class="card-header">
+            <h5 data-i18n="profile">Profile</h5>
+          </div>
+          <div class="profile-content">
+            <p data-i18n="profileDescription">
+              Manage your account information and preferences.
+            </p>
+            <form style="margin-top: 20px">
+              <div class="form-group mb-3">
+                <label class="form-label" data-i18n="myProfile"
+                  >My Profile</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Full Name"
+                  style="
+                    background: rgba(255, 255, 255, 0.05);
+                    color: var(--text-light);
+                    border: 1px solid var(--border-gold);
+                  "
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="email@example.com"
+                  style="
+                    background: rgba(255, 255, 255, 0.05);
+                    color: var(--text-light);
+                    border: 1px solid var(--border-gold);
+                  "
+                />
+              </div>
+              <button
+                type="button"
+                class="btn"
+                style="
+                  background-color: var(--gold-primary);
+                  color: #0b0b0b;
+                  border: none;
+                  padding: 8px 16px;
+                  border-radius: 4px;
+                  font-weight: 600;
+                "
+              >
+                Update Profile
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <section id="section-settings" class="page-section content-card hidden">
+          <div class="card-header">
+            <h5 data-i18n="settings">Settings</h5>
+          </div>
+          <div class="settings-content">
+            <p data-i18n="settingsDescription">
+              Configure your account settings and security options.
+            </p>
+            <div style="margin-top: 20px">
+              <h6 style="color: var(--text-light)">Security Settings</h6>
+              <div class="mb-3">
+                <label class="form-label">Change Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Current Password"
+                  style="
+                    background: rgba(255, 255, 255, 0.05);
+                    color: var(--text-light);
+                    border: 1px solid var(--border-gold);
+                  "
+                />
+                <input
+                  type="password"
+                  class="form-control mt-2"
+                  placeholder="New Password"
+                  style="
+                    background: rgba(255, 255, 255, 0.05);
+                    color: var(--text-light);
+                    border: 1px solid var(--border-gold);
+                  "
+                />
+                <button
+                  type="button"
+                  class="btn mt-3"
+                  style="
+                    background-color: var(--gold-primary);
+                    color: #0b0b0b;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    font-weight: 600;
+                  "
+                >
+                  Update Password
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <!-- Analytics Quick View -->
+      <section class="analytics-section container py-4">
+        <h5 class="section-title">Quick Analytics</h5>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <div class="content-card p-3">
+              <h6>Revenue (Last 6 months)</h6>
+              <canvas id="chart-revenue" height="160"></canvas>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="content-card p-3">
+              <h6>User Growth</h6>
+              <canvas id="chart-users" height="160"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="auth.js"></script>
+    <script src="i18n.js"></script>
+    <script>
+      (function () {
+        const name =
+          sessionStorage.getItem("currentUserName") ||
+          sessionStorage.getItem("currentUser") ||
+          "Super Admin";
+        const el = document.getElementById("profile-name");
+        if (el) el.textContent = name;
+      })();
+    </script>
+
+    <script src="dashboard-nav.js"></script>
+    <script>
+      // Language selector
+      const langSelect = document.getElementById("lang-select");
+      if (langSelect) {
+        langSelect.value = window.i18n.getLang();
+        langSelect.addEventListener("change", function () {
+          window.i18n.setLang(this.value);
+          const titleEl = document.querySelector(".page-title");
+          if (titleEl && window.i18n) {
+            const keyMap = {
+              dashboard: "dashboard",
+              system: "systemManagement",
+              admins: "usersManagement",
+              assets: "assetManagement",
+              users: "usersManagement",
+              disputes: "disputes",
+              analytics: "analytics",
+              finance: "financeReports",
+              profile: "profile",
+              settings: "settings",
+            };
+            const activeItem = document.querySelector(
+              ".sidebar .menu-item.active",
+            );
+            if (activeItem) {
+              const page = activeItem.dataset.page || "dashboard";
+              const key = keyMap[page] || page;
+              titleEl.textContent = window.i18n.t(key);
+            }
+          }
+        });
+      }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Sample Chart.js charts
+      (function () {
+        const ctx1 = document.getElementById("chart-revenue");
+        if (ctx1) {
+          new Chart(ctx1.getContext("2d"), {
+            type: "line",
+            data: {
+              labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+              datasets: [
+                {
+                  label: "Revenue (Br)",
+                  data: [1200000, 1400000, 1800000, 1600000, 2000000, 2100000],
+                  borderColor: "#ff6b6b",
+                  backgroundColor: "rgba(255,107,107,0.12)",
+                },
+              ],
+            },
+            options: { responsive: true },
+          });
+        }
+
+        const ctx2 = document.getElementById("chart-users");
+        if (ctx2) {
+          new Chart(ctx2.getContext("2d"), {
+            type: "bar",
+            data: {
+              labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+              datasets: [
+                {
+                  label: "New Users",
+                  data: [120, 190, 300, 250, 400, 460],
+                  backgroundColor: "#4f46e5",
+                },
+              ],
+            },
+            options: { responsive: true },
+          });
+        }
+      })();
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("active");
+      }
+
+      document
+        .querySelector(".notification-btn")
+        .addEventListener("click", function () {
+          this.parentElement
+            .querySelector(".notification-dropdown")
+            .classList.toggle("show");
+        });
+
+      document.addEventListener("click", function (event) {
+        if (!event.target.closest(".notification-bell")) {
+          document
+            .querySelector(".notification-dropdown")
+            ?.classList.remove("show");
+        }
+      });
+    </script>
+    <script src="theme.js"></script>
+  </body>
+</html>

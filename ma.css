@@ -1,0 +1,375 @@
+/* ==========================================================================
+   1. PREMIUM DARK & GOLD CORE STYLES
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+:root {
+  --bg-dark: #0b0b0b;
+  --bg-card: #161616;
+  --card-bg: #0b0505;
+  --nav-bg: rgba(11, 11, 11, 0.95);
+  --auth-bg: radial-gradient(circle at center, #151515 0%, #0b0b0b 100%);
+  --input-bg: #1c1c1c;
+  --input-focus-bg: #222;
+  --footer-bg: #050505;
+  --gold-primary: #dfb15b;
+  --gold-secondary: #c5963f;
+  --text-light: #f5f5f5;
+  --text-muted: #a0a0a0;
+  --border-gold: rgba(223, 177, 91, 0.2);
+}
+
+body.light-mode {
+  --bg-dark: #f4f5f6;
+  --bg-card: #ffffff;
+  --card-bg: #ffffff;
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --auth-bg: radial-gradient(circle at center, #f7f7f7 0%, #eef0f2 100%);
+  --input-bg: #ffffff;
+  --input-focus-bg: #f0f0f0;
+  --footer-bg: #f0f0f0;
+  --text-light: #111111;
+  --text-muted: #606060;
+  --border-gold: rgba(223, 177, 91, 0.15);
+}
+
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   2. NAVIGATION BAR STYLING (ከአርማ ጋር)
+   ========================================================================== */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 8%;
+  background-color: var(--nav-bg);
+  border-bottom: 1px solid var(--border-gold);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+/* Logo Container - በግራ በኩል አርማ እና ጽሑፍ */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.logo-container:hover {
+  transform: scale(1.02);
+}
+
+/* የአርማው ምስል */
+.web-logo {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-primary);
+  object-fit: cover;
+}
+
+/* የአርማው ጽሑፍ */
+.logo-text {
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-light);
+  letter-spacing: 0.5px;
+}
+
+.logo-text span {
+  color: var(--gold-primary);
+}
+
+/* Navigation Menu */
+nav ul {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  margin: 0 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: var(--gold-primary);
+  text-shadow: 0 0 8px rgba(223, 177, 91, 0.4);
+}
+
+.nav-btn {
+  background: var(--gold-primary);
+  color: #0b0b0b !important;
+  padding: 8px 22px;
+  border-radius: 30px;
+  font-weight: 600 !important;
+}
+
+.nav-btn:hover {
+  background: var(--gold-secondary);
+  color: #0b0b0b !important;
+  text-shadow: none !important;
+}
+
+/* Nav Controls (Language + Theme) */
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.lang-select {
+  background: rgba(223, 177, 91, 0.1);
+  border: 1px solid var(--border-gold);
+  color: var(--text-light);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.lang-select:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--border-gold);
+  background: transparent;
+  color: var(--text-light);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.theme-toggle-btn:hover {
+  background: rgba(223, 177, 91, 0.1);
+  color: var(--gold-primary);
+  border-color: var(--gold-primary);
+}
+
+/* ==========================================================================
+   3. HERO SECTION
+   ========================================================================== */
+.hero {
+  height: 85vh;
+  background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.55)), 
+              url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2070&auto=format');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.hero-content {
+  max-width: 750px;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.hero-content button {
+  background: var(--gold-primary);
+  border: none;
+  padding: 14px 35px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.3s;
+  color: #0b0b0b;
+}
+
+.hero-content button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(223, 177, 91, 0.4);
+}
+
+/* ==========================================================================
+   4. CARDS SECTION
+   ========================================================================== */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-gold);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s;
+  height: 100%;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: var(--gold-primary);
+}
+
+.card-img-container {
+  height: 240px;
+  overflow: hidden;
+}
+
+.card-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.card:hover .card-img-container img {
+  transform: scale(1.05);
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-body h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.price {
+  color: var(--gold-primary);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+/* ==========================================================================
+   5. ABOUT SECTION
+   ========================================================================== */
+.about {
+  padding: 80px 100px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--border-gold), transparent);
+}
+
+.about h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.about p {
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+/* ==========================================================================
+   6. FOOTER
+   ========================================================================== */
+footer {
+  background-color: var(--footer-bg);
+  color: var(--text-muted);
+  text-align: center;
+  padding: 35px;
+  font-size: 12px;
+  border-top: 1px solid rgba(223, 177, 91, 0.06);
+}
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN
+   ========================================================================== */
+@media (max-width: 992px) {
+  nav {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px 5%;
+  }
+  
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  nav ul li {
+    margin: 0 10px;
+  }
+  
+  .hero-content h1 {
+    font-size: 36px;
+  }
+  
+  .hero-content p {
+    font-size: 16px;
+  }
+  
+  .about {
+    padding: 50px 20px;
+  }
+  
+  .about h2 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero {
+    height: 70vh;
+  }
+  
+  .hero-content h1 {
+    font-size: 28px;
+  }
+  
+  .logo-text {
+    font-size: 18px;
+  }
+  
+  .web-logo {
+    height: 35px;
+    width: 35px;
+  }
+  
+  .nav-controls {
+    width: 100%;
+    justify-content: center;
+  }
+}

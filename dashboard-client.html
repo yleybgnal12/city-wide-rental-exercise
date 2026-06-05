@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Dashboard - CityWide Rental</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-mini">
+          <img src="logoye(1).png" alt="Logo" class="logo-img" />
+        </div>
+        <div class="logo-full d-none d-md-block">
+          <h5 class="mb-0">CityWide <span>RENTAL</span></h5>
+        </div>
+        <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-menu">
+        <a href="#" class="menu-item active" data-page="dashboard">
+          <i class="fas fa-home"></i>
+          <span>My Dashboard</span>
+        </a>
+        <a href="#" class="menu-item" data-page="rentals">
+          <i class="fas fa-search"></i>
+          <span>Browse Assets</span>
+        </a>
+        <a href="#" class="menu-item" data-page="my-rentals">
+          <i class="fas fa-shopping-cart"></i>
+          <span>My Rentals</span>
+        </a>
+        <a href="#" class="menu-item" data-page="assets">
+          <i class="fas fa-box"></i>
+          <span>Asset Management</span>
+        </a>
+        <a href="#" class="menu-item" data-page="favorites">
+          <i class="fas fa-heart"></i>
+          <span>Favorites</span>
+        </a>
+        <a href="#" class="menu-item" data-page="messages">
+          <i class="fas fa-envelope"></i>
+          <span>Messages</span>
+        </a>
+        <hr class="sidebar-divider" />
+        <a href="#" class="menu-item" data-page="profile">
+          <i class="fas fa-user-circle"></i>
+          <span>Profile Settings</span>
+        </a>
+        <a href="#" class="menu-item" data-page="settings">
+          <i class="fas fa-cog"></i>
+          <span>Settings</span>
+        </a>
+        <a href="ma.html" class="menu-item">
+          <i class="fas fa-arrow-left"></i>
+          <span>Back to Home</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper">
+      <!-- Top Navbar -->
+      <header class="top-navbar">
+        <div class="navbar-left">
+          <button class="sidebar-btn d-md-none" onclick="toggleSidebar()">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h4 class="page-title">Renter Dashboard</h4>
+        </div>
+
+        <div class="navbar-center">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              placeholder="Search assets..."
+              class="search-input"
+            />
+          </div>
+        </div>
+
+        <div class="navbar-right">
+          <div class="lang-selector">
+            <select id="lang-select" class="lang-select">
+              <option value="en" data-i18n="english">English</option>
+              <option value="am" data-i18n="amharic">አማርኛ</option>
+            </select>
+          </div>
+          <div class="theme-toggle">
+            <button
+              id="theme-toggle-btn"
+              class="theme-toggle-btn"
+              type="button"
+              aria-label="Toggle theme"
+            >
+              <i class="fas fa-moon"></i>
+              <span class="theme-label">Theme</span>
+            </button>
+          </div>
+
+          <div class="notification-bell">
+            <button class="notification-btn">
+              <i class="fas fa-bell"></i>
+              <span class="notification-badge">2</span>
+            </button>
+            <div class="notification-dropdown">
+              <div class="notification-item">
+                <i class="fas fa-calendar text-success"></i>
+                <div>
+                  <p>Rental pickup reminder</p>
+                  <small>Tomorrow at 10 AM</small>
+                </div>
+              </div>
+              <div class="notification-item">
+                <i class="fas fa-check-circle text-info"></i>
+                <div>
+                  <p>Your rental approved</p>
+                  <small>2 hours ago</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="user-profile">
+            <button class="profile-btn" data-bs-toggle="dropdown">
+              <img
+                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Client"
+                alt="User"
+                class="profile-pic"
+              />
+              <span id="profile-name" class="profile-name">User</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><i class="fas fa-user-circle"></i> My Profile</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><i class="fas fa-cog"></i> Settings</a
+                >
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="ma.html"
+                  onclick="sessionStorage.clear()"
+                  ><i class="fas fa-sign-out-alt"></i> Logout</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <!-- KPI Cards Row -->
+        <section class="kpi-section">
+          <h5 class="section-title">My Rental Summary</h5>
+          <div class="row g-3 mb-4">
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="kpi-card">
+                <div class="kpi-header">
+                  <h6 class="kpi-label">Active Rentals</h6>
+                </div>
+                <p class="kpi-value">3</p>
+                <p class="kpi-subtitle">Currently renting</p>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="kpi-card">
+                <div class="kpi-header">
+                  <h6 class="kpi-label">Total Spent</h6>
+                </div>
+                <p class="kpi-value">42,500 Br</p>
+                <p class="kpi-subtitle">This month</p>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="kpi-card">
+                <div class="kpi-header">
+                  <h6 class="kpi-label">Rating</h6>
+                </div>
+                <p class="kpi-value">4.9</p>
+                <p class="kpi-subtitle">Based on 18 reviews</p>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+              <div class="kpi-card">
+                <div class="kpi-header">
+                  <h6 class="kpi-label">Wallet Balance</h6>
+                </div>
+                <p class="kpi-value">15,000 Br</p>
+                <p class="kpi-subtitle">Available credits</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Main Split Layout -->
+        <div class="row g-3">
+          <!-- Left/Main Side -->
+          <div class="col-12 col-lg-8">
+            <!-- My Current Rentals -->
+            <section class="content-card">
+              <div class="card-header">
+                <h5>My Current Rentals</h5>
+                <a href="#" class="view-all">View All</a>
+              </div>
+              <div class="table-responsive">
+                <table class="transaction-table">
+                  <thead>
+                    <tr>
+                      <th>Asset Name</th>
+                      <th>Rental Period</th>
+                      <th>Owner</th>
+                      <th>Status</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Canon EOS R5 Camera</td>
+                      <td>June 3-5, 2026</td>
+                      <td>Abebe Kebede</td>
+                      <td><span class="status-badge active">Active</span></td>
+                      <td>5,500 Br</td>
+                    </tr>
+                    <tr>
+                      <td>DJI Drone Pro</td>
+                      <td>June 1-10, 2026</td>
+                      <td>Marta Tekle</td>
+                      <td><span class="status-badge active">Active</span></td>
+                      <td>12,000 Br</td>
+                    </tr>
+                    <tr>
+                      <td>Tesla Model 3</td>
+                      <td>June 5-8, 2026</td>
+                      <td>Asrat Mulatu</td>
+                      <td>
+                        <span class="status-badge pending"
+                          >Pending Approval</span
+                        >
+                      </td>
+                      <td>25,000 Br</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <!-- Rental History -->
+            <section class="content-card mt-3">
+              <div class="card-header">
+                <h5>Recent Rental History</h5>
+                <a href="#" class="view-all">View All</a>
+              </div>
+              <div class="table-responsive">
+                <table class="transaction-table">
+                  <thead>
+                    <tr>
+                      <th>Asset Name</th>
+                      <th>Completed Date</th>
+                      <th>Duration</th>
+                      <th>Total Cost</th>
+                      <th>Rating</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Designer Dress Collection</td>
+                      <td>May 31, 2026</td>
+                      <td>3 days</td>
+                      <td>2,800 Br</td>
+                      <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+                    </tr>
+                    <tr>
+                      <td>GPU Computing Node</td>
+                      <td>May 28, 2026</td>
+                      <td>7 days</td>
+                      <td>12,500 Br</td>
+                      <td><span class="star">⭐⭐⭐⭐⭐</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+
+          <!-- Right Side Sidebar -->
+          <div class="col-12 col-lg-4">
+            <!-- Quick Actions -->
+            <section class="content-card">
+              <div class="card-header">
+                <h5>Quick Actions</h5>
+              </div>
+              <div class="asset-list">
+                <button
+                  class="action-btn"
+                  style="width: 100%; margin-bottom: 10px"
+                >
+                  <i class="fas fa-search"></i> Browse New Assets
+                </button>
+                <button
+                  class="action-btn"
+                  style="width: 100%; margin-bottom: 10px"
+                >
+                  <i class="fas fa-heart"></i> View Favorites
+                </button>
+                <button
+                  class="action-btn"
+                  style="width: 100%; margin-bottom: 10px"
+                >
+                  <i class="fas fa-envelope"></i> Contact Owners
+                </button>
+                <button class="action-btn" style="width: 100%">
+                  <i class="fas fa-wallet"></i> Manage Wallet
+                </button>
+              </div>
+            </section>
+
+            <!-- Top Rated Assets -->
+            <section class="content-card mt-3">
+              <div class="card-header">
+                <h5>Trending Assets</h5>
+              </div>
+              <div class="asset-list">
+                <div class="asset-item">
+                  <div class="asset-icon">📷</div>
+                  <div class="asset-info">
+                    <h6>Professional Cameras</h6>
+                    <p class="asset-count">4.8★ - 120 rentals</p>
+                  </div>
+                </div>
+                <div class="asset-item">
+                  <div class="asset-icon">🚗</div>
+                  <div class="asset-info">
+                    <h6>Luxury Vehicles</h6>
+                    <p class="asset-count">4.7★ - 95 rentals</p>
+                  </div>
+                </div>
+                <div class="asset-item">
+                  <div class="asset-icon">🎬</div>
+                  <div class="asset-info">
+                    <h6>Cinematography Kits</h6>
+                    <p class="asset-count">4.9★ - 78 rentals</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Wallet & Credits -->
+            <section class="content-card mt-3">
+              <div class="card-header">
+                <h5>Wallet Info</h5>
+              </div>
+              <div class="health-section">
+                <div class="health-item">
+                  <div class="health-label">
+                    <span>Available Balance</span>
+                    <span class="health-value" style="color: #4caf50"
+                      >15,000 Br</span
+                    >
+                  </div>
+                </div>
+                <div class="health-item">
+                  <div class="health-label">
+                    <span>Pending Charges</span>
+                    <span class="health-value">8,500 Br</span>
+                  </div>
+                </div>
+                <div class="health-item">
+                  <div class="health-label">
+                    <span>Total Spent (Lifetime)</span>
+                    <span class="health-value">156,750 Br</span>
+                  </div>
+                </div>
+              </div>
+              <button class="action-btn" style="width: 100%; margin-top: 15px">
+                <i class="fas fa-plus"></i> Add Funds
+              </button>
+            </section>
+          </div>
+        </div>
+
+        <!-- Page Sections -->
+        <section id="section-profile" class="page-section content-card hidden">
+          <div class="card-header">
+            <h5 data-i18n="profile">Profile</h5>
+          </div>
+          <div class="profile-content">
+            <p data-i18n="profileDescription">
+              Manage your account information and preferences.
+            </p>
+            <form style="margin-top: 20px">
+              <div class="form-group mb-3">
+                <label class="form-label" data-i18n="myProfile"
+                  >My Profile</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Full Name"
+                  style="
+                    background: rgba(255, 255, 255, 0.05);
+                    color: var(--text-light);
+                    border: 1px solid var(--border-gold);
+                  "
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="email@example.com"
+                  style="
+                    background: rgba(255, 255, 255, 0.05);
+                    color: var(--text-light);
+                    border: 1px solid var(--border-gold);
+                  "
+                />
+              </div>
+              <button
+                type="button"
+                class="btn"
+                style="
+                  background-color: var(--gold-primary);
+                  color: #0b0b0b;
+                  border: none;
+                  padding: 8px 16px;
+                  border-radius: 4px;
+                  font-weight: 600;
+                "
+              >
+                Update Profile
+              </button>
+            </form>
+          </div>
+        </section>
+
+        <section id="section-settings" class="page-section content-card hidden">
+          <div class="card-header">
+            <h5 data-i18n="settings">Settings</h5>
+          </div>
+          <div class="settings-content">
+            <p data-i18n="settingsDescription">
+              Configure your account settings and security options.
+            </p>
+            <div style="margin-top: 20px">
+              <h6 style="color: var(--text-light)">Security Settings</h6>
+              <div class="mb-3">
+                <label class="form-label">Change Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Current Password"
+                  style="
+                    background: rgba(255, 255, 255, 0.05);
+                    color: var(--text-light);
+                    border: 1px solid var(--border-gold);
+                  "
+                />
+                <input
+                  type="password"
+                  class="form-control mt-2"
+                  placeholder="New Password"
+                  style="
+                    background: rgba(255, 255, 255, 0.05);
+                    color: var(--text-light);
+                    border: 1px solid var(--border-gold);
+                  "
+                />
+                <button
+                  type="button"
+                  class="btn mt-3"
+                  style="
+                    background-color: var(--gold-primary);
+                    color: #0b0b0b;
+                    border: none;
+                    padding: 8px 16px;
+                    border-radius: 4px;
+                    font-weight: 600;
+                  "
+                >
+                  Update Password
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="auth.js"></script>
+    <script src="i18n.js"></script>
+    <script>
+      (function () {
+        const name =
+          sessionStorage.getItem("currentUserName") ||
+          sessionStorage.getItem("currentUser") ||
+          "Client";
+        const el = document.getElementById("profile-name");
+        if (el) el.textContent = name;
+      })();
+    </script>
+    <script src="dashboard-nav.js"></script>
+    <script>
+      // Language selector
+      const langSelect = document.getElementById("lang-select");
+      if (langSelect) {
+        langSelect.value = window.i18n.getLang();
+        langSelect.addEventListener("change", function () {
+          window.i18n.setLang(this.value);
+          const titleEl = document.querySelector(".page-title");
+          if (titleEl && window.i18n) {
+            const keyMap = {
+              dashboard: "dashboard",
+              rentals: "browseAssets",
+              "my-rentals": "myRentals",
+              favorites: "favorites",
+              messages: "messages",
+              profile: "profile",
+              settings: "settings",
+            };
+            const activeItem = document.querySelector(
+              ".sidebar .menu-item.active",
+            );
+            if (activeItem) {
+              const page = activeItem.dataset.page || "dashboard";
+              const key = keyMap[page] || page;
+              titleEl.textContent = window.i18n.t(key);
+            }
+          }
+        });
+      }
+    </script>
+    <script src="theme.js"></script>
+  </body>
+</html>

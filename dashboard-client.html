@@ -1,566 +1,719 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Client Dashboard - CityWide Rental</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover" />
+  <title>CityWide Rental - Client Hub (Renter / Owner)</title>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="dashboard.css" />
-  </head>
-  <body>
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="logo-mini">
-          <img src="logoye(1).png" alt="Logo" class="logo-img" />
-        </div>
-        <div class="logo-full d-none d-md-block">
-          <h5 class="mb-0">CityWide <span>RENTAL</span></h5>
-        </div>
-        <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
+  <!-- Bootstrap 5 + Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="dashboard.css" />
 
-      <nav class="sidebar-menu">
-        <a href="#" class="menu-item active" data-page="dashboard">
-          <i class="fas fa-home"></i>
-          <span>My Dashboard</span>
-        </a>
-        <a href="#" class="menu-item" data-page="rentals">
-          <i class="fas fa-search"></i>
-          <span>Browse Assets</span>
-        </a>
-        <a href="#" class="menu-item" data-page="my-rentals">
-          <i class="fas fa-shopping-cart"></i>
-          <span>My Rentals</span>
-        </a>
-        <a href="#" class="menu-item" data-page="assets">
-          <i class="fas fa-box"></i>
-          <span>Asset Management</span>
-        </a>
-        <a href="#" class="menu-item" data-page="favorites">
-          <i class="fas fa-heart"></i>
-          <span>Favorites</span>
-        </a>
-        <a href="#" class="menu-item" data-page="messages">
-          <i class="fas fa-envelope"></i>
-          <span>Messages</span>
-        </a>
-        <hr class="sidebar-divider" />
-        <a href="#" class="menu-item" data-page="profile">
-          <i class="fas fa-user-circle"></i>
-          <span>Profile Settings</span>
-        </a>
-        <a href="#" class="menu-item" data-page="settings">
-          <i class="fas fa-cog"></i>
-          <span>Settings</span>
-        </a>
-        <a href="ma.html" class="menu-item">
-          <i class="fas fa-arrow-left"></i>
-          <span>Back to Home</span>
-        </a>
-      </nav>
-    </aside>
+  <style>
+    /* Additional styles specific to client dashboard */
+    .hero-section {
+      background: var(--hero-overlay, rgba(0, 0, 0, 0.6));
+      border-radius: 20px;
+      padding: 2rem;
+    }
 
-    <!-- Main Content Wrapper -->
-    <div class="main-wrapper">
-      <!-- Top Navbar -->
-      <header class="top-navbar">
-        <div class="navbar-left">
-          <button class="sidebar-btn d-md-none" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i>
-          </button>
-          <h4 class="page-title">Renter Dashboard</h4>
-        </div>
+    body.light-mode .hero-section {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border-color);
+    }
 
-        <div class="navbar-center">
-          <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input
-              type="text"
-              placeholder="Search assets..."
-              class="search-input"
-            />
-          </div>
-        </div>
+    .asset-card {
+      background: var(--bg-card);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border-gold);
+      transition: transform 0.2s, box-shadow 0.2s;
+      height: 100%;
+    }
 
-        <div class="navbar-right">
-          <div class="lang-selector">
-            <select id="lang-select" class="lang-select">
-              <option value="en" data-i18n="english">English</option>
-              <option value="am" data-i18n="amharic">አማርኛ</option>
-            </select>
-          </div>
-          <div class="theme-toggle">
-            <button
-              id="theme-toggle-btn"
-              class="theme-toggle-btn"
-              type="button"
-              aria-label="Toggle theme"
-            >
-              <i class="fas fa-moon"></i>
-              <span class="theme-label">Theme</span>
-            </button>
-          </div>
+    .asset-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--gold-primary);
+      box-shadow: var(--shadow-md);
+    }
 
-          <div class="notification-bell">
-            <button class="notification-btn">
-              <i class="fas fa-bell"></i>
-              <span class="notification-badge">2</span>
-            </button>
-            <div class="notification-dropdown">
-              <div class="notification-item">
-                <i class="fas fa-calendar text-success"></i>
-                <div>
-                  <p>Rental pickup reminder</p>
-                  <small>Tomorrow at 10 AM</small>
-                </div>
-              </div>
-              <div class="notification-item">
-                <i class="fas fa-check-circle text-info"></i>
-                <div>
-                  <p>Your rental approved</p>
-                  <small>2 hours ago</small>
-                </div>
-              </div>
-            </div>
-          </div>
+    .asset-img {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
 
-          <div class="user-profile">
-            <button class="profile-btn" data-bs-toggle="dropdown">
-              <img
-                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Client"
-                alt="User"
-                class="profile-pic"
-              />
-              <span id="profile-name" class="profile-name">User</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="fas fa-user-circle"></i> My Profile</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="fas fa-cog"></i> Settings</a
-                >
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  href="ma.html"
-                  onclick="sessionStorage.clear()"
-                  ><i class="fas fa-sign-out-alt"></i> Logout</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
+    .asset-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
 
-      <!-- Main Content Area -->
-      <main class="main-content">
-        <!-- KPI Cards Row -->
-        <section class="kpi-section">
-          <h5 class="section-title">My Rental Summary</h5>
-          <div class="row g-3 mb-4">
-            <div class="col-12 col-md-6 col-lg-3">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Active Rentals</h6>
-                </div>
-                <p class="kpi-value">3</p>
-                <p class="kpi-subtitle">Currently renting</p>
-              </div>
-            </div>
+    .asset-card:hover .asset-img img {
+      transform: scale(1.03);
+    }
 
-            <div class="col-12 col-md-6 col-lg-3">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Total Spent</h6>
-                </div>
-                <p class="kpi-value">42,500 Br</p>
-                <p class="kpi-subtitle">This month</p>
-              </div>
-            </div>
+    .category-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--gold-primary);
+    }
 
-            <div class="col-12 col-md-6 col-lg-3">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Rating</h6>
-                </div>
-                <p class="kpi-value">4.9</p>
-                <p class="kpi-subtitle">Based on 18 reviews</p>
-              </div>
-            </div>
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
 
-            <div class="col-12 col-md-6 col-lg-3">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Wallet Balance</h6>
-                </div>
-                <p class="kpi-value">15,000 Br</p>
-                <p class="kpi-subtitle">Available credits</p>
-              </div>
-            </div>
-          </div>
-        </section>
+    .daily-rate {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+    }
 
-        <!-- Main Split Layout -->
-        <div class="row g-3">
-          <!-- Left/Main Side -->
-          <div class="col-12 col-lg-8">
-            <!-- My Current Rentals -->
-            <section class="content-card">
-              <div class="card-header">
-                <h5>My Current Rentals</h5>
-                <a href="#" class="view-all">View All</a>
-              </div>
-              <div class="table-responsive">
-                <table class="transaction-table">
-                  <thead>
-                    <tr>
-                      <th>Asset Name</th>
-                      <th>Rental Period</th>
-                      <th>Owner</th>
-                      <th>Status</th>
-                      <th>Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Canon EOS R5 Camera</td>
-                      <td>June 3-5, 2026</td>
-                      <td>Abebe Kebede</td>
-                      <td><span class="status-badge active">Active</span></td>
-                      <td>5,500 Br</td>
-                    </tr>
-                    <tr>
-                      <td>DJI Drone Pro</td>
-                      <td>June 1-10, 2026</td>
-                      <td>Marta Tekle</td>
-                      <td><span class="status-badge active">Active</span></td>
-                      <td>12,000 Br</td>
-                    </tr>
-                    <tr>
-                      <td>Tesla Model 3</td>
-                      <td>June 5-8, 2026</td>
-                      <td>Asrat Mulatu</td>
-                      <td>
-                        <span class="status-badge pending"
-                          >Pending Approval</span
-                        >
-                      </td>
-                      <td>25,000 Br</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
+    /* Chat Styles */
+    .chat-wrapper {
+      display: flex;
+      gap: 20px;
+      min-height: 500px;
+    }
 
-            <!-- Rental History -->
-            <section class="content-card mt-3">
-              <div class="card-header">
-                <h5>Recent Rental History</h5>
-                <a href="#" class="view-all">View All</a>
-              </div>
-              <div class="table-responsive">
-                <table class="transaction-table">
-                  <thead>
-                    <tr>
-                      <th>Asset Name</th>
-                      <th>Completed Date</th>
-                      <th>Duration</th>
-                      <th>Total Cost</th>
-                      <th>Rating</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Designer Dress Collection</td>
-                      <td>May 31, 2026</td>
-                      <td>3 days</td>
-                      <td>2,800 Br</td>
-                      <td><span class="star">⭐⭐⭐⭐⭐</span></td>
-                    </tr>
-                    <tr>
-                      <td>GPU Computing Node</td>
-                      <td>May 28, 2026</td>
-                      <td>7 days</td>
-                      <td>12,500 Br</td>
-                      <td><span class="star">⭐⭐⭐⭐⭐</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </div>
+    .chat-contacts {
+      width: 300px;
+      background: var(--bg-card);
+      border-radius: 20px;
+      padding: 1rem;
+      border: 1px solid var(--border-gold);
+    }
 
-          <!-- Right Side Sidebar -->
-          <div class="col-12 col-lg-4">
-            <!-- Quick Actions -->
-            <section class="content-card">
-              <div class="card-header">
-                <h5>Quick Actions</h5>
-              </div>
-              <div class="asset-list">
-                <button
-                  class="action-btn"
-                  style="width: 100%; margin-bottom: 10px"
-                >
-                  <i class="fas fa-search"></i> Browse New Assets
-                </button>
-                <button
-                  class="action-btn"
-                  style="width: 100%; margin-bottom: 10px"
-                >
-                  <i class="fas fa-heart"></i> View Favorites
-                </button>
-                <button
-                  class="action-btn"
-                  style="width: 100%; margin-bottom: 10px"
-                >
-                  <i class="fas fa-envelope"></i> Contact Owners
-                </button>
-                <button class="action-btn" style="width: 100%">
-                  <i class="fas fa-wallet"></i> Manage Wallet
-                </button>
-              </div>
-            </section>
+    .chat-messages-area {
+      flex: 1;
+      background: var(--bg-card);
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border-gold);
+      overflow: hidden;
+    }
 
-            <!-- Top Rated Assets -->
-            <section class="content-card mt-3">
-              <div class="card-header">
-                <h5>Trending Assets</h5>
-              </div>
-              <div class="asset-list">
-                <div class="asset-item">
-                  <div class="asset-icon">📷</div>
-                  <div class="asset-info">
-                    <h6>Professional Cameras</h6>
-                    <p class="asset-count">4.8★ - 120 rentals</p>
-                  </div>
-                </div>
-                <div class="asset-item">
-                  <div class="asset-icon">🚗</div>
-                  <div class="asset-info">
-                    <h6>Luxury Vehicles</h6>
-                    <p class="asset-count">4.7★ - 95 rentals</p>
-                  </div>
-                </div>
-                <div class="asset-item">
-                  <div class="asset-icon">🎬</div>
-                  <div class="asset-info">
-                    <h6>Cinematography Kits</h6>
-                    <p class="asset-count">4.9★ - 78 rentals</p>
-                  </div>
-                </div>
-              </div>
-            </section>
+    .chat-header {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border-gold);
+      font-weight: 600;
+    }
 
-            <!-- Wallet & Credits -->
-            <section class="content-card mt-3">
-              <div class="card-header">
-                <h5>Wallet Info</h5>
-              </div>
-              <div class="health-section">
-                <div class="health-item">
-                  <div class="health-label">
-                    <span>Available Balance</span>
-                    <span class="health-value" style="color: #4caf50"
-                      >15,000 Br</span
-                    >
-                  </div>
-                </div>
-                <div class="health-item">
-                  <div class="health-label">
-                    <span>Pending Charges</span>
-                    <span class="health-value">8,500 Br</span>
-                  </div>
-                </div>
-                <div class="health-item">
-                  <div class="health-label">
-                    <span>Total Spent (Lifetime)</span>
-                    <span class="health-value">156,750 Br</span>
-                  </div>
-                </div>
-              </div>
-              <button class="action-btn" style="width: 100%; margin-top: 15px">
-                <i class="fas fa-plus"></i> Add Funds
-              </button>
-            </section>
-          </div>
-        </div>
+    .chat-body {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-        <!-- Page Sections -->
-        <section id="section-profile" class="page-section content-card hidden">
-          <div class="card-header">
-            <h5 data-i18n="profile">Profile</h5>
-          </div>
-          <div class="profile-content">
-            <p data-i18n="profileDescription">
-              Manage your account information and preferences.
-            </p>
-            <form style="margin-top: 20px">
-              <div class="form-group mb-3">
-                <label class="form-label" data-i18n="myProfile"
-                  >My Profile</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Full Name"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-              </div>
-              <div class="form-group mb-3">
-                <label class="form-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="email@example.com"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-              </div>
-              <button
-                type="button"
-                class="btn"
-                style="
-                  background-color: var(--gold-primary);
-                  color: #0b0b0b;
-                  border: none;
-                  padding: 8px 16px;
-                  border-radius: 4px;
-                  font-weight: 600;
-                "
-              >
-                Update Profile
-              </button>
-            </form>
-          </div>
-        </section>
+    .contact-item {
+      padding: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-gold);
+      transition: all 0.2s;
+    }
 
-        <section id="section-settings" class="page-section content-card hidden">
-          <div class="card-header">
-            <h5 data-i18n="settings">Settings</h5>
-          </div>
-          <div class="settings-content">
-            <p data-i18n="settingsDescription">
-              Configure your account settings and security options.
-            </p>
-            <div style="margin-top: 20px">
-              <h6 style="color: var(--text-light)">Security Settings</h6>
-              <div class="mb-3">
-                <label class="form-label">Change Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="Current Password"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-                <input
-                  type="password"
-                  class="form-control mt-2"
-                  placeholder="New Password"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-                <button
-                  type="button"
-                  class="btn mt-3"
-                  style="
-                    background-color: var(--gold-primary);
-                    color: #0b0b0b;
-                    border: none;
-                    padding: 8px 16px;
-                    border-radius: 4px;
-                    font-weight: 600;
-                  "
-                >
-                  Update Password
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+    .contact-item:hover {
+      background: rgba(223, 177, 91, 0.1);
+    }
+
+    .contact-item.active-contact {
+      background: rgba(223, 177, 91, 0.15);
+      color: var(--gold-primary);
+    }
+
+    .message-bubble {
+      max-width: 70%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 0.85rem;
+      margin-bottom: 8px;
+    }
+
+    .message-sent {
+      background: var(--gold-primary);
+      align-self: flex-end;
+      color: #0b0b0b;
+    }
+
+    .message-received {
+      background: var(--input-bg, #2a2a2a);
+      align-self: flex-start;
+    }
+
+    .chat-input-area {
+      padding: 1rem;
+      border-top: 1px solid var(--border-gold);
+      background: var(--bg-card);
+    }
+
+    @media (max-width: 992px) {
+      .chat-wrapper {
+        flex-direction: column;
+      }
+      .chat-contacts {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-section h1 {
+        font-size: 1.6rem !important;
+      }
+      .asset-img {
+        height: 180px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .asset-img {
+        height: 160px;
+      }
+      .daily-rate {
+        font-size: 0.9rem;
+      }
+    }
+
+    .rating-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .stars-display {
+      color: #fbbf24;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+    }
+
+    .review-card {
+      background: rgba(223, 177, 91, 0.05);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 12px;
+      border-left: 3px solid var(--gold-primary);
+    }
+
+    .review-user {
+      font-weight: 600;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .review-text {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-mini">
+      <img src="logoye(1).png" alt="Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/45'">
+    </div>
+    <div class="logo-full">
+      <h5 class="mb-0">CityWide <span>Rental</span></h5>
+    </div>
+    <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <nav class="sidebar-menu">
+    <!-- RENTER LINKS -->
+    <div id="renterLinks">
+      <a href="#" class="menu-item active" data-page="dashboard"><i class="fas fa-home"></i><span>Dashboard</span></a>
+      <a href="#" class="menu-item" data-page="browse"><i class="fas fa-car"></i><span>Browse Assets</span></a>
+      <a href="#" class="menu-item" data-page="messages"><i class="fas fa-comment-dots"></i><span>Messages</span></a>
+      <a href="#" class="menu-item" data-page="myrentals"><i class="fas fa-receipt"></i><span>My Rentals</span></a>
+      <a href="#" class="menu-item" data-page="pastrentals"><i class="fas fa-history"></i><span>Past Rentals</span></a>
+      <a href="#" class="menu-item" data-page="payments"><i class="fas fa-credit-card"></i><span>Payments</span></a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="auth.js"></script>
-    <script src="i18n.js"></script>
-    <script>
-      (function () {
-        const name =
-          sessionStorage.getItem("currentUserName") ||
-          sessionStorage.getItem("currentUser") ||
-          "Client";
-        const el = document.getElementById("profile-name");
-        if (el) el.textContent = name;
-      })();
-    </script>
-    <script src="dashboard-nav.js"></script>
-    <script>
-      // Language selector
-      const langSelect = document.getElementById("lang-select");
-      if (langSelect) {
-        langSelect.value = window.i18n.getLang();
-        langSelect.addEventListener("change", function () {
-          window.i18n.setLang(this.value);
-          const titleEl = document.querySelector(".page-title");
-          if (titleEl && window.i18n) {
-            const keyMap = {
-              dashboard: "dashboard",
-              rentals: "browseAssets",
-              "my-rentals": "myRentals",
-              favorites: "favorites",
-              messages: "messages",
-              profile: "profile",
-              settings: "settings",
-            };
-            const activeItem = document.querySelector(
-              ".sidebar .menu-item.active",
-            );
-            if (activeItem) {
-              const page = activeItem.dataset.page || "dashboard";
-              const key = keyMap[page] || page;
-              titleEl.textContent = window.i18n.t(key);
-            }
-          }
-        });
+    <!-- OWNER LINKS -->
+    <div id="ownerLinks" style="display: none;">
+      <a href="#" class="menu-item" data-page="earnings"><i class="fas fa-chart-line"></i><span>Earnings Overview</span></a>
+      <a href="#" class="menu-item" data-page="listedassets"><i class="fas fa-box"></i><span>My Listed Assets</span></a>
+      <a href="#" class="menu-item" data-page="requests"><i class="fas fa-calendar-check"></i><span>Rental Requests</span></a>
+      <a href="#" class="menu-item" data-page="ownermessages"><i class="fas fa-comment-dots"></i><span>Messages</span></a>
+      <a href="#" class="menu-item" data-page="storesettings"><i class="fas fa-cog"></i><span>Store Settings</span></a>
+    </div>
+
+    <hr class="sidebar-divider" />
+    <a href="#" class="menu-item" id="themeToggleSidebar"><i class="fas fa-moon"></i><span>Dark/Light Mode</span></a>
+    <a href="ma.html" class="menu-item" onclick="sessionStorage.clear()"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+  </nav>
+</aside>
+
+<div class="main-wrapper">
+  <header class="top-navbar">
+    <div class="navbar-left">
+      <button class="sidebar-btn d-md-none" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <h4 class="page-title" id="mainPageTitle">Renter Dashboard</h4>
+    </div>
+
+    <div class="navbar-center">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search assets, messages..." class="search-input" />
+      </div>
+    </div>
+
+    <div class="navbar-right">
+      <div class="mode-toggle-container" style="display: flex; gap: 8px; background: var(--bg-card); border-radius: 40px; padding: 4px; border: 1px solid var(--border-gold);">
+        <button id="renterModeBtn" class="mode-btn active-mode" style="background: var(--gold-primary); color: #0b0b0b; padding: 6px 18px; border-radius: 30px; border: none; font-size: 0.75rem; font-weight: 600;">👤 Renter Mode</button>
+        <button id="ownerModeBtn" class="mode-btn" style="background: transparent; color: var(--text-secondary); padding: 6px 18px; border-radius: 30px; border: none; font-size: 0.75rem; font-weight: 600;">🏢 Owner Mode</button>
+      </div>
+
+      <div class="nav-controls">
+        <select id="lang-select" class="lang-select">
+          <option value="en">English</option>
+          <option value="am">አማርኛ</option>
+        </select>
+        <div class="theme-toggle">
+          <button id="theme-toggle-btn" class="theme-toggle-btn" type="button">
+            <i class="fas fa-moon"></i>
+            <span>Theme</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="notification-bell">
+        <button class="notification-btn">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge">3</span>
+        </button>
+        <div class="notification-dropdown">
+          <div class="notification-item">
+            <i class="fas fa-check-circle text-success"></i>
+            <div><p>Rental approved: Tesla Model S</p><small>2 hours ago</small></div>
+          </div>
+          <div class="notification-item">
+            <i class="fas fa-clock text-warning"></i>
+            <div><p>Return due: Canon Camera</p><small>1 day left</small></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="user-profile">
+        <button class="profile-btn" data-bs-toggle="dropdown">
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="User" class="profile-pic" />
+          <span class="profile-name">Alex R.</span>
+          <i class="fas fa-chevron-down"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
+          <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i> My Profile</a></li>
+          <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Settings</a></li>
+          <li><hr class="dropdown-divider" /></li>
+          <li><a class="dropdown-item" href="ma.html" onclick="sessionStorage.clear()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Dashboard Page -->
+    <div id="page-dashboard" class="page-section">
+      <div class="hero-section mb-4">
+        <h1 style="font-size: 2rem; font-weight: 700;">Welcome back, Alex! 👋</h1>
+        <p>Manage your rentals, browse premium assets, and connect with owners.</p>
+      </div>
+      <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="kpi-card"><h6 class="kpi-label">Active Rentals</h6><p class="kpi-value">2</p><p class="kpi-subtitle">Currently renting</p></div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="kpi-card"><h6 class="kpi-label">Total Spent</h6><p class="kpi-value">12,800 Br</p><p class="kpi-subtitle">This month</p></div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="kpi-card"><h6 class="kpi-label">Wallet Balance</h6><p class="kpi-value">4,200 Br</p><p class="kpi-subtitle">Available</p></div>
+        </div>
+      </div>
+      <div class="content-card">
+        <div class="card-header"><h5><i class="fas fa-history"></i> Recent Activity</h5></div>
+        <div class="log-item"><span class="log-time">Today</span><p class="log-text">✅ Rental approved: Audi e-tron GT</p></div>
+        <div class="log-item"><span class="log-time">Yesterday</span><p class="log-text">⏳ Return pending: Canon Cinema Kit</p></div>
+      </div>
+    </div>
+
+    <!-- Browse Assets Page -->
+    <div id="page-browse" class="page-section hidden">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="asset-card">
+            <div class="asset-img position-relative"><img src="https://images.unsplash.com/photo-1584345604476-8ec5e12e42dd?w=600&auto=format" alt="Ford Mustang"><span class="category-badge"><i class="fas fa-car"></i> Sports Car</span></div>
+            <div class="p-3"><h5>Ford Mustang Shelby GT500</h5><div class="price-row"><span class="daily-rate">4,800 Br</span><span>/ day</span></div><div class="rating-display"><span class="stars-display">★★★★★</span><span class="rating-count">(124 reviews)</span></div><div class="d-flex gap-2 mt-3"><button class="btn-gold rent-now">Rent Now</button><button class="btn-outline-gold chat-asset">Chat</button></div></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="asset-card">
+            <div class="asset-img position-relative"><img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=600&auto=format" alt="Range Rover"><span class="category-badge"><i class="fas fa-car-side"></i> Luxury SUV</span></div>
+            <div class="p-3"><h5>Range Rover Sport</h5><div class="price-row"><span class="daily-rate">5,200 Br</span><span>/ day</span></div><div class="rating-display"><span class="stars-display">★★★★★</span><span class="rating-count">(89 reviews)</span></div><div class="d-flex gap-2 mt-3"><button class="btn-gold rent-now">Rent Now</button><button class="btn-outline-gold chat-asset">Chat</button></div></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="asset-card">
+            <div class="asset-img position-relative"><img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=600&auto=format" alt="Tesla"><span class="category-badge"><i class="fas fa-bolt"></i> Electric</span></div>
+            <div class="p-3"><h5>Tesla Model S Plaid</h5><div class="price-row"><span class="daily-rate">3,800 Br</span><span>/ day</span></div><div class="rating-display"><span class="stars-display">★★★★½</span><span class="rating-count">(203 reviews)</span></div><div class="d-flex gap-2 mt-3"><button class="btn-gold rent-now">Rent Now</button><button class="btn-outline-gold chat-asset">Chat</button></div></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="asset-card">
+            <div class="asset-img position-relative"><img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&auto=format" alt="Sony FX3"><span class="category-badge"><i class="fas fa-video"></i> Cinema Camera</span></div>
+            <div class="p-3"><h5>Sony FX3 Cinema Kit</h5><div class="price-row"><span class="daily-rate">950 Br</span><span>/ day</span></div><div class="rating-display"><span class="stars-display">★★★★★</span><span class="rating-count">(67 reviews)</span></div><div class="d-flex gap-2 mt-3"><button class="btn-gold rent-now">Rent Now</button><button class="btn-outline-gold chat-asset">Chat</button></div></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="asset-card">
+            <div class="asset-img position-relative"><img src="https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=600&auto=format" alt="NVIDIA"><span class="category-badge"><i class="fas fa-microchip"></i> GPU Cluster</span></div>
+            <div class="p-3"><h5>NVIDIA H100 8-GPU</h5><div class="price-row"><span class="daily-rate">4,500 Br</span><span>/ day</span></div><div class="rating-display"><span class="stars-display">★★★★★</span><span class="rating-count">(31 reviews)</span></div><div class="d-flex gap-2 mt-3"><button class="btn-gold rent-now">Rent Now</button><button class="btn-outline-gold chat-asset">Chat</button></div></div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="asset-card">
+            <div class="asset-img position-relative"><img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&auto=format" alt="ARRI"><span class="category-badge"><i class="fas fa-film"></i> ARRI Rig</span></div>
+            <div class="p-3"><h5>ARRI Alexa Mini LF</h5><div class="price-row"><span class="daily-rate">3,400 Br</span><span>/ day</span></div><div class="rating-display"><span class="stars-display">★★★★★</span><span class="rating-count">(42 reviews)</span></div><div class="d-flex gap-2 mt-3"><button class="btn-gold rent-now">Rent Now</button><button class="btn-outline-gold chat-asset">Chat</button></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages Page -->
+    <div id="page-messages" class="page-section hidden">
+      <div class="content-card p-0">
+        <div class="chat-wrapper">
+          <div class="chat-contacts" id="contactList"></div>
+          <div class="chat-messages-area">
+            <div class="chat-header">💬 Select a conversation</div>
+            <div class="chat-body" id="chatBody"></div>
+            <div class="chat-input-area d-flex gap-2">
+              <input type="text" class="form-control" id="messageInput" placeholder="Type a message...">
+              <button class="btn-gold" id="sendMsgBtn">Send</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Rentals Page -->
+    <div id="page-myrentals" class="page-section hidden">
+      <div class="content-card"><div class="card-header"><h5>📋 Current Rentals</h5></div><div class="table-responsive"><table class="transaction-table"><thead><tr><th>Asset</th><th>Return Date</th><th>Status</th><th>Actions</th></tr></thead><tbody><tr><td>Tesla Model S</td><td>June 10, 2026</td><td><span class="status-badge active">Active</span></td><td><button class="btn-outline-gold btn-sm">Extend</button></td></tr><tr><td>Canon Cinema Kit</td><td>June 12, 2026</td><td><span class="status-badge active">Active</span></td><td><button class="btn-outline-gold btn-sm">Extend</button></td></tr></tbody></table></div></div>
+    </div>
+
+    <!-- Past Rentals Page with Rating -->
+    <div id="page-pastrentals" class="page-section hidden">
+      <div class="content-card">
+        <div class="card-header"><h5><i class="fas fa-clock"></i> Past Rentals</h5></div>
+        <div class="table-responsive">
+          <table class="transaction-table">
+            <thead><tr><th>Asset</th><th>Rental Period</th><th>Total Cost</th><th>Status</th><th>Your Rating</th><th>Action</th></tr></thead>
+            <tbody id="pastRentalsTable">
+              <tr id="rental_canon"><td>Canon EOS R5 Camera</td><td>May 20-25, 2026</td><td>2,500 Br</td><td><span class="status-badge completed">Completed</span></td><td id="rating_canon"><span class="stars-display">☆☆☆☆☆</span></td><td><button class="btn-outline-gold btn-sm rate-btn" data-asset="Canon EOS R5" data-asset-id="asset_canon">Write Review</button></td></tr>
+              <tr id="rental_tesla"><td>Tesla Model S</td><td>May 10-12, 2026</td><td>9,000 Br</td><td><span class="status-badge completed">Completed</span></td><td id="rating_tesla"><span class="stars-display">★★★★☆</span></td><td><button class="btn-outline-gold btn-sm rate-btn" data-asset="Tesla Model S" data-asset-id="asset_tesla">Edit Review</button></td></tr>
+              <tr id="rental_dji"><td>DJI Drone Pro</td><td>April 15-18, 2026</td><td>4,800 Br</td><td><span class="status-badge completed">Completed</span></td><td id="rating_dji"><span class="stars-display">★★★★★</span></td><td><button class="btn-outline-gold btn-sm rate-btn" data-asset="DJI Drone Pro" data-asset-id="asset_dji">View Review</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="content-card mt-3">
+        <div class="card-header"><h5><i class="fas fa-star" style="color: var(--gold-primary);"></i> Your Recent Reviews</h5></div>
+        <div id="userReviewsList">
+          <div class="review-card"><div class="review-user"><span>Tesla Model S</span><span class="stars-display">★★★★☆</span></div><div class="review-text">"Amazing car! The acceleration is insane. Owner was very responsive."</div></div>
+          <div class="review-card"><div class="review-user"><span>DJI Drone Pro</span><span class="stars-display">★★★★★</span></div><div class="review-text">"Perfect condition, captured amazing footage. Will rent again!"</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payments Page -->
+    <div id="page-payments" class="page-section hidden">
+      <div class="content-card"><div class="card-header"><h5>💳 Invoices</h5></div><div class="table-responsive"><table class="transaction-table"><thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th></tr></thead><tbody><tr><td>June 1, 2026</td><td>Tesla Rental</td><td>5,000 Br</td><td><span class="status-badge completed">Paid</span></td></tr><tr><td>May 28, 2026</td><td>Camera Kit</td><td>1,700 Br</td><td><span class="status-badge completed">Paid</span></td></tr></tbody></table></div></div>
+    </div>
+
+    <!-- Owner Pages -->
+    <div id="page-earnings" class="page-section hidden"><div class="content-card"><div class="card-header"><h5>💰 Earnings Overview</h5></div><p class="kpi-value" style="font-size: 2rem;">24,800 Br</p><p class="kpi-subtitle">This month | +18% vs last month</p></div></div>
+    <div id="page-listedassets" class="page-section hidden"><div class="content-card"><div class="card-header"><h5>📦 My Listed Assets</h5><button class="btn-gold" id="listNewAssetBtn">+ List New Asset</button></div><div class="table-responsive"><table class="transaction-table"><thead><tr><th>Asset</th><th>Daily Rate</th><th>Status</th></tr></thead><tbody><tr><td>Canon R5 Kit</td><td>500 Br</td><td><span class="status-badge active">Available</span></td></tr><tr><td>DJI Drone Pro</td><td>1,200 Br</td><td><span class="status-badge active">Rented</span></td></tr></tbody></table></div></div></div>
+    <div id="page-requests" class="page-section hidden"><div class="content-card"><div class="card-header"><h5>📨 Incoming Requests</h5></div><div class="table-responsive"><table class="transaction-table"><thead><tr><th>Renter</th><th>Asset</th><th>Period</th><th>Action</th></tr></thead><tbody><tr><td>Marta T.</td><td>Tesla Model S</td><td>Jun 15-18</td><td><button class="btn-gold btn-sm me-2">Approve</button><button class="btn-outline-gold btn-sm">Reject</button></td></tr></tbody></table></div></div></div>
+    <div id="page-ownermessages" class="page-section hidden"><div class="content-card p-0"><div class="chat-wrapper"><div class="chat-contacts" id="ownerContactList"></div><div class="chat-messages-area"><div class="chat-header">💬 Messages</div><div class="chat-body" id="ownerChatBody"></div><div class="chat-input-area d-flex gap-2"><input type="text" id="ownerMsgInput" class="form-control" placeholder="Reply..."><button class="btn-gold" id="sendOwnerMsgBtn">Send</button></div></div></div></div></div>
+    <div id="page-storesettings" class="page-section hidden"><div class="content-card"><div class="card-header"><h5>⚙️ Store Settings</h5></div><form><div class="mb-3"><label class="form-label">Store Name</label><input class="form-control" value="Alex Premium Rentals"></div><div class="mb-3"><label class="form-label">Security Deposit (%)</label><input class="form-control" value="15"></div><button class="btn-gold">Save Settings</button></form></div></div>
+  </main>
+  <footer><p>© 2026 CityWide Rental — Seamless peer‑to‑peer ecosystem</p></footer>
+</div>
+
+<!-- Review Modal -->
+<div class="modal fade" id="reviewModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="fas fa-star" style="color: var(--gold-primary);"></i> Rate Your Rental Experience</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p>Asset: <strong id="reviewAssetName">Loading...</strong></p>
+        <div class="star-rating" id="starRatingWidget">
+          <i class="far fa-star star" data-rating="1"></i>
+          <i class="far fa-star star" data-rating="2"></i>
+          <i class="far fa-star star" data-rating="3"></i>
+          <i class="far fa-star star" data-rating="4"></i>
+          <i class="far fa-star star" data-rating="5"></i>
+        </div>
+        <div class="text-center mb-3"><span id="ratingText">Select a rating</span></div>
+        <div class="mt-3">
+          <label class="form-label">Your Feedback</label>
+          <textarea class="form-control" id="reviewComment" rows="4" placeholder="Share your experience with this asset..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-outline-gold" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn-gold" id="submitReviewBtn"><i class="fas fa-paper-plane"></i> Submit Review</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Review Toast -->
+<div class="review-toast" id="reviewToast">
+  <i class="fas fa-check-circle" style="font-size: 20px; color: #10b981;"></i>
+  <div><strong>Review Submitted!</strong><p style="margin: 0; font-size: 12px;">Thank you for your feedback</p></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  // ========== PAGE NAVIGATION ==========
+  function showPage(pageId) {
+    document.querySelectorAll('.page-section').forEach(section => section.classList.add('hidden'));
+    document.getElementById(`page-${pageId}`).classList.remove('hidden');
+    document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+    document.querySelector(`.menu-item[data-page="${pageId}"]`).classList.add('active');
+  }
+
+  document.querySelectorAll('.menu-item[data-page]').forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      showPage(item.dataset.page);
+    });
+  });
+
+  // ========== RENTER/OWNER MODE TOGGLE ==========
+  const renterLinksDiv = document.getElementById('renterLinks');
+  const ownerLinksDiv = document.getElementById('ownerLinks');
+  const renterModeBtn = document.getElementById('renterModeBtn');
+  const ownerModeBtn = document.getElementById('ownerModeBtn');
+  const mainTitleSpan = document.getElementById('mainPageTitle');
+
+  function setMode(mode) {
+    if (mode === 'renter') {
+      renterLinksDiv.style.display = 'block';
+      ownerLinksDiv.style.display = 'none';
+      renterModeBtn.style.background = 'var(--gold-primary)';
+      renterModeBtn.style.color = '#0b0b0b';
+      ownerModeBtn.style.background = 'transparent';
+      ownerModeBtn.style.color = 'var(--text-secondary)';
+      mainTitleSpan.textContent = 'Renter Dashboard';
+      showPage('dashboard');
+    } else {
+      renterLinksDiv.style.display = 'none';
+      ownerLinksDiv.style.display = 'block';
+      ownerModeBtn.style.background = 'var(--gold-primary)';
+      ownerModeBtn.style.color = '#0b0b0b';
+      renterModeBtn.style.background = 'transparent';
+      renterModeBtn.style.color = 'var(--text-secondary)';
+      mainTitleSpan.textContent = 'Owner Dashboard';
+      showPage('earnings');
+    }
+  }
+  renterModeBtn.addEventListener('click', () => setMode('renter'));
+  ownerModeBtn.addEventListener('click', () => setMode('owner'));
+
+  // ========== THEME TOGGLE ==========
+  function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    const icon = document.querySelector('#theme-toggle-btn i');
+    if (icon) icon.className = document.body.classList.contains('light-mode') ? 'fas fa-sun' : 'fas fa-moon';
+  }
+  if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode');
+  document.getElementById('theme-toggle-btn')?.addEventListener('click', toggleTheme);
+  document.getElementById('themeToggleSidebar')?.addEventListener('click', (e) => { e.preventDefault(); toggleTheme(); });
+
+  // ========== STAR RATING SYSTEM ==========
+  let currentRating = 0;
+  let currentAsset = '';
+  let currentAssetId = '';
+
+  function updateStars(rating) {
+    const stars = document.querySelectorAll('#starRatingWidget .star');
+    stars.forEach((star, index) => {
+      if (index < rating) {
+        star.classList.remove('far');
+        star.classList.add('fas');
+        star.classList.add('active');
+      } else {
+        star.classList.remove('fas');
+        star.classList.add('far');
+        star.classList.remove('active');
       }
-    </script>
-    <script src="theme.js"></script>
-  </body>
+    });
+    currentRating = rating;
+    const texts = ['', '⭐ Poor - Needs improvement', '⭐⭐ Fair - Could be better', '⭐⭐⭐ Good - Satisfactory', '⭐⭐⭐⭐ Very Good - Impressive!', '⭐⭐⭐⭐⭐ Excellent - Outstanding!'];
+    document.getElementById('ratingText').textContent = texts[rating] || 'Select a rating';
+  }
+
+  function initStarRating() {
+    const stars = document.querySelectorAll('#starRatingWidget .star');
+    stars.forEach(star => {
+      star.onclick = () => updateStars(parseInt(star.dataset.rating));
+      star.onmouseenter = () => { const r = parseInt(star.dataset.rating); stars.forEach((s, i) => { if (i < r) { s.classList.remove('far'); s.classList.add('fas'); } else { s.classList.remove('fas'); s.classList.add('far'); } }); };
+    });
+    document.getElementById('starRatingWidget').onmouseleave = () => updateStars(currentRating);
+  }
+
+  function saveReview(assetId, assetName, rating, comment) {
+    const reviews = JSON.parse(localStorage.getItem('userReviews') || '{}');
+    reviews[assetId] = { assetName, rating, comment, date: new Date().toISOString() };
+    localStorage.setItem('userReviews', JSON.stringify(reviews));
+    const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    const ratingCell = document.querySelector(`#pastRentalsTable tr[id="rental_${assetId}"] td:nth-child(5)`);
+    if (ratingCell) ratingCell.innerHTML = `<span class="stars-display">${stars}</span>`;
+    document.getElementById('userReviewsList').insertAdjacentHTML('afterbegin', `<div class="review-card"><div class="review-user"><span>${assetName}</span><span class="stars-display">${stars}</span></div><div class="review-text">"${comment || 'No comment provided.'}"</div></div>`);
+    showToast('Review submitted successfully!');
+  }
+
+  function showToast(message) {
+    const toast = document.getElementById('reviewToast');
+    toast.querySelector('p').textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  // Review Modal
+  const reviewModal = document.getElementById('reviewModal');
+  if (reviewModal) {
+    reviewModal.addEventListener('show.bs.modal', (event) => {
+      const button = event.relatedTarget;
+      currentAsset = button.getAttribute('data-asset');
+      currentAssetId = button.getAttribute('data-asset-id');
+      document.getElementById('reviewAssetName').textContent = currentAsset;
+      currentRating = 0;
+      updateStars(0);
+      document.getElementById('reviewComment').value = '';
+      initStarRating();
+    });
+  }
+
+  document.getElementById('submitReviewBtn')?.addEventListener('click', () => {
+    if (currentRating === 0) { showToast('Please select a rating before submitting!'); return; }
+    const comment = document.getElementById('reviewComment').value.trim();
+    saveReview(currentAssetId, currentAsset, currentRating, comment);
+    bootstrap.Modal.getInstance(reviewModal).hide();
+  });
+
+  // Load existing reviews
+  function loadUserReviews() {
+    const reviews = JSON.parse(localStorage.getItem('userReviews') || '{}');
+    for (const [assetId, review] of Object.entries(reviews)) {
+      const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+      const ratingCell = document.querySelector(`#pastRentalsTable tr[id="rental_${assetId}"] td:nth-child(5)`);
+      if (ratingCell) ratingCell.innerHTML = `<span class="stars-display">${stars}</span>`;
+      document.getElementById('userReviewsList').insertAdjacentHTML('afterbegin', `<div class="review-card"><div class="review-user"><span>${review.assetName}</span><span class="stars-display">${stars}</span></div><div class="review-text">"${review.comment || 'No comment provided.'}"</div></div>`);
+    }
+  }
+
+  // ========== CHAT SYSTEM ==========
+  let activeChat = null;
+  const conversations = [{ id: 'chat1', contact: 'Elena (Mustang Owner)', asset: 'Ford Mustang', messages: [{ text: 'Is the car available?', sender: 'me', time: '10:24' }, { text: 'Yes, ready!', sender: 'them', time: '10:26' }] }];
+
+  function renderContacts() {
+    const container = document.getElementById('contactList');
+    if (!container) return;
+    container.innerHTML = '';
+    conversations.forEach(conv => {
+      const div = document.createElement('div');
+      div.className = 'contact-item';
+      div.innerHTML = `<strong>${conv.contact}</strong><br><small>${conv.asset}</small>`;
+      div.onclick = () => openChat(conv.id);
+      if (activeChat === conv.id) div.classList.add('active-contact');
+      container.appendChild(div);
+    });
+  }
+
+  function openChat(id) {
+    activeChat = id;
+    const conv = conversations.find(c => c.id === id);
+    if (!conv) return;
+    const body = document.getElementById('chatBody');
+    body.innerHTML = '';
+    conv.messages.forEach(msg => {
+      const bubble = document.createElement('div');
+      bubble.className = `message-bubble ${msg.sender === 'me' ? 'message-sent' : 'message-received'}`;
+      bubble.innerHTML = `${msg.text}<div style="font-size:10px; opacity:0.7">${msg.time}</div>`;
+      body.appendChild(bubble);
+    });
+    body.scrollTop = body.scrollHeight;
+    renderContacts();
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('messageInput');
+    if (!input.value.trim() || !activeChat) return;
+    const conv = conversations.find(c => c.id === activeChat);
+    if (conv) {
+      conv.messages.push({ text: input.value, sender: 'me', time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) });
+      openChat(activeChat);
+      input.value = '';
+    }
+  }
+
+  document.getElementById('sendMsgBtn')?.addEventListener('click', sendMessage);
+  document.getElementById('messageInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
+  renderContacts();
+  if (conversations.length) openChat(conversations[0].id);
+
+  // Chat from Browse Assets
+  document.querySelectorAll('.chat-asset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      setMode('renter');
+      showPage('messages');
+    });
+  });
+
+  document.querySelectorAll('.rent-now').forEach(btn => btn.addEventListener('click', () => alert('✅ Rental request sent! Owner notified.')));
+
+  function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
+  document.addEventListener('click', (e) => {
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.querySelector('.sidebar-btn');
+    if (window.innerWidth < 768 && sidebar && toggle && !sidebar.contains(e.target) && !toggle.contains(e.target)) {
+      sidebar.classList.remove('active');
+    }
+  });
+
+  loadUserReviews();
+  showPage('dashboard');
+</script>
+</body>
 </html>

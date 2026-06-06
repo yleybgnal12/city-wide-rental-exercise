@@ -121,6 +121,19 @@
             </div>
           </div>
 
+          <div class="nav-controls">
+            <select id="lang-select" class="lang-select">
+              <option value="en">English</option>
+              <option value="am">አማርኛ</option>
+            </select>
+            <div class="theme-toggle">
+              <button id="theme-toggle-btn" class="theme-toggle-btn" type="button">
+                <i class="fas fa-moon"></i>
+                <span>Theme</span>
+              </button>
+            </div>
+          </div>
+
           <div class="user-profile">
             <button class="profile-btn" data-bs-toggle="dropdown">
               <img
@@ -447,6 +460,43 @@
           document
             .querySelector(".notification-dropdown")
             ?.classList.remove("show");
+        }
+      });
+
+      // ========== THEME TOGGLE ==========
+      function updateThemeUI() {
+        const isLight = document.body.classList.contains('light-mode');
+        const headerIcon = document.querySelector('#theme-toggle-btn i');
+        if (headerIcon) {
+          if (isLight) {
+            headerIcon.className = 'fas fa-sun';
+          } else {
+            headerIcon.className = 'fas fa-moon';
+          }
+        }
+      }
+
+      function toggleTheme() {
+        document.body.classList.toggle('light-mode');
+        localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        updateThemeUI();
+      }
+
+      // Load saved theme
+      if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        updateThemeUI();
+        document.getElementById('theme-toggle-btn')?.addEventListener('click', toggleTheme);
+
+        const langSelect = document.getElementById('lang-select');
+        if (langSelect) {
+          langSelect.value = localStorage.getItem('language') || 'en';
+          langSelect.addEventListener('change', (e) => {
+            localStorage.setItem('language', e.target.value);
+          });
         }
       });
     </script>

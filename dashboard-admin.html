@@ -1,608 +1,514 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Admin Dashboard - CityWide Rental</title>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="dashboard.css" />
-  </head>
-  <body>
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="logo-mini">
-          <img src="logoye(1).png" alt="Logo" class="logo-img" />
-        </div>
-        <div class="logo-full d-none d-md-block">
-          <h5 class="mb-0">CityWide <span>ADMIN</span></h5>
-        </div>
-        <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-      <nav class="sidebar-menu">
-        <a href="#" class="menu-item active" data-page="dashboard">
-          <i class="fas fa-chart-line"></i>
-          <span>Dashboard</span>
-        </a>
-        <a href="#" class="menu-item" data-page="assets">
-          <i class="fas fa-box"></i>
-          <span>Asset Management</span>
-        </a>
-        <a href="#" class="menu-item" data-page="orders">
-          <i class="fas fa-shopping-cart"></i>
-          <span>Rental Orders</span>
-        </a>
-        <a href="#" class="menu-item" data-page="users">
-          <i class="fas fa-users"></i>
-          <span>Users Management</span>
-        </a>
-        <a href="#" class="menu-item" data-page="profile">
-          <i class="fas fa-user-circle"></i>
-          <span>Profile</span>
-        </a>
-        <a href="#" class="menu-item" data-page="payments">
-          <i class="fas fa-credit-card"></i>
-          <span>Payments</span>
-        </a>
-        <a href="#" class="menu-item" data-page="analytics">
-          <i class="fas fa-chart-bar"></i>
-          <span>Analytics</span>
-        </a>
-        <hr class="sidebar-divider" />
-        <a href="#" class="menu-item" data-page="settings">
-          <i class="fas fa-cog"></i>
-          <span>Settings</span>
-        </a>
-        <a href="ma.html" class="menu-item">
-          <i class="fas fa-arrow-left"></i>
-          <span>Back to Home</span>
-        </a>
-      </nav>
-    </aside>
-
-    <!-- Main Content Wrapper -->
-    <div class="main-wrapper">
-      <!-- Top Navbar -->
-      <header class="top-navbar">
-        <div class="navbar-left">
-          <button class="sidebar-btn d-md-none" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i>
-          </button>
-          <h4 class="page-title">Admin Dashboard</h4>
-        </div>
-
-        <div class="navbar-center">
-          <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input
-              type="text"
-              placeholder="Search assets, users, orders..."
-              class="search-input"
-            />
-          </div>
-        </div>
-
-        <div class="navbar-right">
-          <div class="lang-selector">
-            <select id="lang-select" class="lang-select">
-              <option value="en" data-i18n="english">English</option>
-              <option value="am" data-i18n="amharic">አማርኛ</option>
-            </select>
-          </div>
-          <div class="theme-toggle">
-            <button
-              id="theme-toggle-btn"
-              class="theme-btn"
-              type="button"
-              aria-label="Toggle theme"
-            >
-              <i class="fas fa-moon"></i>
-              <span class="theme-label">Dark</span>
-            </button>
-          </div>
-
-          <div class="notification-bell">
-            <button class="notification-btn">
-              <i class="fas fa-bell"></i>
-              <span class="notification-badge">5</span>
-            </button>
-            <div class="notification-dropdown">
-              <div class="notification-item">
-                <i class="fas fa-exclamation-circle text-danger"></i>
-                <div>
-                  <p>Pending asset approval</p>
-                  <small>3 items waiting</small>
-                </div>
-              </div>
-              <div class="notification-item">
-                <i class="fas fa-user-plus text-info"></i>
-                <div>
-                  <p>New users registered</p>
-                  <small>12 new users today</small>
-                </div>
-              </div>
-              <div class="notification-item">
-                <i class="fas fa-flag text-warning"></i>
-                <div>
-                  <p>Flagged transactions</p>
-                  <small>2 items to review</small>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="user-profile">
-            <button class="profile-btn" data-bs-toggle="dropdown">
-              <img
-                src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin"
-                alt="User"
-                class="profile-pic"
-              />
-              <span id="profile-name" class="profile-name">User</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="fas fa-user-circle"></i> My Profile</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="fas fa-cog"></i> Settings</a
-                >
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  href="ma.html"
-                  onclick="sessionStorage.clear()"
-                  ><i class="fas fa-sign-out-alt"></i> Logout</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
-
-      <!-- Main Content Area -->
-      <main class="main-content">
-        <!-- KPI Cards Row -->
-        <section class="kpi-section">
-          <h5 class="section-title">Platform Metrics</h5>
-          <div class="row g-3 mb-4">
-            <div class="col-12 col-md-6 col-lg-3">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Monthly Revenue</h6>
-                  <span class="kpi-trend up"
-                    ><i class="fas fa-arrow-up"></i> 12.5%</span
-                  >
-                </div>
-                <p class="kpi-value">2,645,850 Br</p>
-                <p class="kpi-subtitle">This month</p>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Total Active Rentals</h6>
-                  <span class="kpi-trend up"
-                    ><i class="fas fa-arrow-up"></i> 18.3%</span
-                  >
-                </div>
-                <p class="kpi-value">512</p>
-                <p class="kpi-subtitle">Currently active</p>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Registered Users</h6>
-                  <span class="kpi-trend up"
-                    ><i class="fas fa-arrow-up"></i> 8.7%</span
-                  >
-                </div>
-                <p class="kpi-value">3,245</p>
-                <p class="kpi-subtitle">Active platform users</p>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-3">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Total Assets Listed</h6>
-                  <span class="kpi-trend down"
-                    ><i class="fas fa-arrow-down"></i> 1.2%</span
-                  >
-                </div>
-                <p class="kpi-value">2,847</p>
-                <p class="kpi-subtitle">On platform</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Main Split Layout -->
-        <div class="row g-3">
-          <!-- Left/Main Side -->
-          <div class="col-12 col-lg-8">
-            <!-- Revenue Chart -->
-            <section class="content-card">
-              <div class="card-header">
-                <h5>Platform Revenue Trend</h5>
-                <div class="chart-controls">
-                  <button class="chart-btn active">This Month</button>
-                  <button class="chart-btn">Last 3 Months</button>
-                  <button class="chart-btn">This Year</button>
-                </div>
-              </div>
-              <div class="chart-placeholder">
-                <div class="chart-bars">
-                  <div class="bar" style="height: 40%"></div>
-                  <div class="bar" style="height: 65%"></div>
-                  <div class="bar" style="height: 55%"></div>
-                  <div class="bar" style="height: 80%"></div>
-                  <div class="bar" style="height: 72%"></div>
-                  <div class="bar" style="height: 85%"></div>
-                  <div class="bar" style="height: 92%"></div>
-                </div>
-                <p class="chart-subtitle">Revenue in Birr (Thousands)</p>
-              </div>
-            </section>
-
-            <!-- Recent Transactions -->
-            <section class="content-card mt-3">
-              <div class="card-header">
-                <h5>Recent Rental Transactions</h5>
-                <a href="#" class="view-all">View All</a>
-              </div>
-              <div class="table-responsive">
-                <table class="transaction-table">
-                  <thead>
-                    <tr>
-                      <th>Order ID</th>
-                      <th>Asset</th>
-                      <th>Renter</th>
-                      <th>Date</th>
-                      <th>Status</th>
-                      <th>Revenue</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>#ORD-20260603-001</td>
-                      <td>Canon EOS R5</td>
-                      <td>Abebe Kebede</td>
-                      <td>June 3, 2026</td>
-                      <td><span class="status-badge active">Active</span></td>
-                      <td>5,500 Br</td>
-                    </tr>
-                    <tr>
-                      <td>#ORD-20260603-002</td>
-                      <td>Tesla Model S</td>
-                      <td>Almaz Desta</td>
-                      <td>June 2, 2026</td>
-                      <td>
-                        <span class="status-badge completed">Completed</span>
-                      </td>
-                      <td>45,000 Br</td>
-                    </tr>
-                    <tr>
-                      <td>#ORD-20260602-045</td>
-                      <td>DJI Drone Pro</td>
-                      <td>Marta Tekle</td>
-                      <td>June 1, 2026</td>
-                      <td>
-                        <span class="status-badge completed">Completed</span>
-                      </td>
-                      <td>3,200 Br</td>
-                    </tr>
-                    <tr>
-                      <td>#ORD-20260602-044</td>
-                      <td>Designer Dress</td>
-                      <td>Hirut Sisay</td>
-                      <td>May 31, 2026</td>
-                      <td><span class="status-badge pending">Pending</span></td>
-                      <td>2,800 Br</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </div>
-
-          <!-- Right Side -->
-          <div class="col-12 col-lg-4">
-            <!-- Top Performing Assets -->
-            <section class="content-card">
-              <div class="card-header">
-                <h5>Top Performing Assets</h5>
-              </div>
-              <div class="asset-list">
-                <div class="asset-item">
-                  <div class="asset-icon">📷</div>
-                  <div class="asset-info">
-                    <h6>Professional Cameras</h6>
-                    <p class="asset-count">847 rentals - 156K Br</p>
-                  </div>
-                  <span class="asset-badge">1st</span>
-                </div>
-                <div class="asset-item">
-                  <div class="asset-icon">🚗</div>
-                  <div class="asset-info">
-                    <h6>Luxury Vehicles</h6>
-                    <p class="asset-count">623 rentals - 1.2M Br</p>
-                  </div>
-                  <span class="asset-badge">2nd</span>
-                </div>
-                <div class="asset-item">
-                  <div class="asset-icon">🎬</div>
-                  <div class="asset-info">
-                    <h6>Cinematography Kits</h6>
-                    <p class="asset-count">512 rentals - 98K Br</p>
-                  </div>
-                  <span class="asset-badge">3rd</span>
-                </div>
-              </div>
-            </section>
-
-            <!-- Pending Approvals -->
-            <section class="content-card mt-3">
-              <div class="card-header">
-                <h5>Pending Approvals</h5>
-              </div>
-              <div class="logs-section">
-                <div class="log-item">
-                  <span class="log-time">3</span>
-                  <p class="log-text">Assets pending verification</p>
-                </div>
-                <div class="log-item">
-                  <span class="log-time">2</span>
-                  <p class="log-text">Disputes to resolve</p>
-                </div>
-                <div class="log-item">
-                  <span class="log-time">5</span>
-                  <p class="log-text">Flagged transactions</p>
-                </div>
-                <div class="log-item">
-                  <span class="log-time">1</span>
-                  <p class="log-text">Damaged asset claims</p>
-                </div>
-              </div>
-              <button class="action-btn" style="width: 100%; margin-top: 15px">
-                <i class="fas fa-check-circle"></i> Review Pending
-              </button>
-            </section>
-
-            <!-- System Status -->
-            <section class="content-card mt-3">
-              <div class="card-header">
-                <h5>System Status</h5>
-              </div>
-              <div class="health-section">
-                <div class="health-item">
-                  <div class="health-label">
-                    <span>Platform Status</span>
-                    <span class="health-status active"
-                      ><i class="fas fa-circle"></i> Operational</span
-                    >
-                  </div>
-                </div>
-                <div class="health-item">
-                  <div class="health-label">
-                    <span>Server Uptime</span>
-                    <span class="health-value">99.9%</span>
-                  </div>
-                  <div class="health-bar">
-                    <div class="health-progress" style="width: 99.9%"></div>
-                  </div>
-                </div>
-                <div class="health-item">
-                  <div class="health-label">
-                    <span>API Response</span>
-                    <span class="health-value">124ms</span>
-                  </div>
-                  <div class="health-bar">
-                    <div class="health-progress" style="width: 88%"></div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <!-- Page Sections -->
-        <section id="section-profile" class="page-section content-card hidden">
-          <div class="card-header">
-            <h5 data-i18n="profile">Profile</h5>
-          </div>
-          <div class="profile-content">
-            <p data-i18n="profileDescription">
-              Manage your account information and preferences.
-            </p>
-            <form style="margin-top: 20px">
-              <div class="form-group mb-3">
-                <label class="form-label" data-i18n="myProfile"
-                  >My Profile</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Full Name"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-              </div>
-              <div class="form-group mb-3">
-                <label class="form-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="email@example.com"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-              </div>
-              <button
-                type="button"
-                class="btn"
-                style="
-                  background-color: var(--gold-primary);
-                  color: #0b0b0b;
-                  border: none;
-                  padding: 8px 16px;
-                  border-radius: 4px;
-                  font-weight: 600;
-                "
-              >
-                Update Profile
-              </button>
-            </form>
-          </div>
-        </section>
-
-        <section id="section-settings" class="page-section content-card hidden">
-          <div class="card-header">
-            <h5 data-i18n="settings">Settings</h5>
-          </div>
-          <div class="settings-content">
-            <p data-i18n="settingsDescription">
-              Configure your account settings and security options.
-            </p>
-            <div style="margin-top: 20px">
-              <h6 style="color: var(--text-light)">Security Settings</h6>
-              <div class="mb-3">
-                <label class="form-label">Change Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="Current Password"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-                <input
-                  type="password"
-                  class="form-control mt-2"
-                  placeholder="New Password"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-                <button
-                  type="button"
-                  class="btn mt-3"
-                  style="
-                    background-color: var(--gold-primary);
-                    color: #0b0b0b;
-                    border: none;
-                    padding: 8px 16px;
-                    border-radius: 4px;
-                    font-weight: 600;
-                  "
-                >
-                  Update Password
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      function toggleSidebar() {
-        const sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("active");
-      }
-
-      document
-        .querySelector(".notification-btn")
-        .addEventListener("click", function () {
-          this.parentElement
-            .querySelector(".notification-dropdown")
-            .classList.toggle("show");
-        });
-
-      document.addEventListener("click", function (event) {
-        if (!event.target.closest(".notification-bell")) {
-          document
-            .querySelector(".notification-dropdown")
-            ?.classList.remove("show");
+    <style>
+        :root {
+            --bg-dark: #0b0b0b;
+            --bg-sidebar: #161616;
+            --bg-card: #161616;
+            --gold-primary: #FFB347;
+            --gold-secondary: #FF9E1A;
+            --text-light: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --border-gold: rgba(255, 179, 71, 0.15);
+            --danger: #ff6b6b;
+            --success: #4caf50;
+            --warning: #ffc107;
         }
-      });
-    </script>
-    <script src="auth.js"></script>
-    <script src="i18n.js"></script>
-    <script>
-      // populate profile name from session
-      (function () {
-        const name =
-          sessionStorage.getItem("currentUserName") ||
-          sessionStorage.getItem("currentUser") ||
-          "Admin";
-        const el = document.getElementById("profile-name");
-        if (el) el.textContent = name;
-      })();
-    </script>
-    <script src="dashboard-nav.js"></script>
-    <script>
-      // Language selector
-      const langSelect = document.getElementById("lang-select");
-      if (langSelect) {
-        langSelect.value = window.i18n.getLang();
-        langSelect.addEventListener("change", function () {
-          window.i18n.setLang(this.value);
-          const titleEl = document.querySelector(".page-title");
-          if (titleEl && window.i18n) {
-            const keyMap = {
-              dashboard: "dashboard",
-              assets: "assetManagement",
-              profile: "profile",
-              settings: "settings",
-            };
-            const activeItem = document.querySelector(
-              ".sidebar .menu-item.active",
-            );
-            if (activeItem) {
-              const page = activeItem.dataset.page || "dashboard";
-              const key = keyMap[page] || page;
-              titleEl.textContent = window.i18n.t(key);
-            }
-          }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed; left: 0; top: 0; width: 280px; height: 100vh;
+            background: var(--bg-sidebar); border-right: 1px solid var(--border-gold);
+            z-index: 1000; transition: all 0.3s ease; transform: translateX(0); overflow-y: auto;
+        }
+        .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border-gold); display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold-primary); object-fit: cover; }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; color: white; }
+        .logo-text span { color: var(--gold-primary); }
+        .nav-link-custom { display: flex; align-items: center; gap: 15px; padding: 12px 20px; color: var(--text-muted); text-decoration: none; margin: 4px 12px; border-radius: 12px; transition: 0.3s; cursor: pointer; border: none; background: transparent; width: calc(100% - 24px); font-size: 0.9rem; }
+        .nav-link-custom i { width: 22px; font-size: 1.1rem; }
+        .nav-link-custom:hover, .nav-link-custom.active { background: linear-gradient(135deg, rgba(255, 179, 71, 0.15), transparent); color: var(--gold-primary); }
+        .sidebar-footer { padding: 20px; border-top: 1px solid var(--border-gold); margin-top: auto; position: absolute; bottom: 0; width: 100%; }
+
+        /* Main Content */
+        .main-wrapper { margin-left: 280px; transition: all 0.3s ease; min-height: 100vh; }
+        .top-navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: rgba(22, 22, 22, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-gold); position: sticky; top: 0; z-index: 999; flex-wrap: wrap; gap: 15px; }
+        .sidebar-toggle-btn { display: none; background: transparent; border: none; color: var(--gold-primary); font-size: 1.3rem; cursor: pointer; }
+        .page-title { font-size: 1.3rem; font-weight: 600; margin: 0; }
+        .search-box { display: flex; align-items: center; background: rgba(255,255,255,0.08); border-radius: 30px; padding: 8px 16px; gap: 10px; }
+        .search-input { background: transparent; border: none; color: white; outline: none; width: 250px; }
+        .profile-pic { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold-primary); cursor: pointer; }
+
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-wrapper { margin-left: 0; }
+            .sidebar-toggle-btn { display: block; }
+        }
+        @media (max-width: 768px) {
+            .top-navbar { flex-direction: column; }
+            .search-box { width: 100%; }
+            .search-input { width: 100%; }
+        }
+
+        /* Content Styles */
+        .main-content { padding: 25px; }
+        .stat-card { background: var(--bg-card); border-radius: 16px; padding: 20px; border: 1px solid var(--border-gold); transition: 0.3s; margin-bottom: 20px; }
+        .stat-card:hover { transform: translateY(-5px); border-color: var(--gold-primary); }
+        .stat-value { font-size: 2rem; font-weight: 700; margin: 10px 0; }
+        .content-card { background: var(--bg-card); border-radius: 16px; padding: 20px; border: 1px solid var(--border-gold); margin-bottom: 20px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .status-badge.available { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
+        .status-badge.rented { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+        .status-badge.pending { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .status-badge.completed { background: rgba(255, 179, 71, 0.2); color: #FFB347; }
+        .transaction-table { width: 100%; }
+        .transaction-table th, .transaction-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        @media (max-width: 768px) {
+            .main-content { padding: 15px; }
+            .transaction-table th, .transaction-table td { padding: 8px; font-size: 0.75rem; }
+        }
+        .btn-gold { background: var(--gold-primary); color: #0b0b0b; border: none; padding: 8px 20px; border-radius: 30px; font-weight: 600; transition: 0.3s; }
+        .btn-gold:hover { background: var(--gold-secondary); transform: translateY(-2px); }
+        .btn-outline-gold { background: transparent; border: 1px solid var(--gold-primary); color: var(--gold-primary); padding: 6px 15px; border-radius: 30px; font-weight: 500; transition: 0.3s; }
+        .btn-outline-gold:hover { background: var(--gold-primary); color: #0b0b0b; }
+        .chart-container { position: relative; height: 300px; width: 100%; }
+        footer { text-align: center; padding: 20px; border-top: 1px solid var(--border-gold); color: var(--text-muted); font-size: 0.75rem; }
+        .form-control, .form-select { background: var(--bg-dark); border: 1px solid var(--border-gold); color: var(--text-light); border-radius: 10px; padding: 10px 15px; }
+        .form-control:focus, .form-select:focus { border-color: var(--gold-primary); box-shadow: none; }
+        .form-label { font-size: 0.75rem; font-weight: 600; color: var(--gold-primary); margin-bottom: 5px; }
+
+        /* ========== LIGHT MODE VARIABLES ========== */
+        body.light-mode {
+            --bg-dark: #f8fafc;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --text-light: #1e293b;
+            --text-muted: #64748b;
+            --border-gold: #e2e8f0;
+        }
+
+        body.light-mode .top-navbar {
+            background: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        body.light-mode .sidebar {
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-gold);
+        }
+
+        body.light-mode .sidebar-header {
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        body.light-mode .logo-text {
+            color: #1e293b;
+        }
+
+        body.light-mode .search-box {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .search-input {
+            color: #1e293b;
+        }
+
+        body.light-mode .search-input::placeholder {
+            color: #64748b;
+        }
+
+        /* ========== UNIFIED LANGUAGE & THEME CONTROLS ========== */
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-left: auto;
+            margin-right: 15px;
+        }
+
+        .lang-select {
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .lang-select {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .lang-select option {
+            background: var(--bg-sidebar);
+            color: var(--text-light);
+        }
+
+        .theme-toggle-btn {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 5px 12px;
+            border-radius: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle-btn:hover, .lang-select:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img src="logoye(1).png" alt="Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/40'">
+        <span class="logo-text">CityWide <span>ADMIN</span></span>
+    </div>
+    <nav class="nav flex-column">
+        <button class="nav-link-custom active" data-bs-toggle="tab" data-bs-target="#dashboard"><i class="fas fa-chart-line"></i> Dashboard</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#assets"><i class="fas fa-box"></i> Asset Management</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#orders"><i class="fas fa-shopping-cart"></i> Rental Orders</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#users"><i class="fas fa-users"></i> Users Management</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#analytics"><i class="fas fa-chart-bar"></i> Analytics</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#settings"><i class="fas fa-cog"></i> Settings</button>
+    </nav>
+    <div class="sidebar-footer">
+        <button class="nav-link-custom" onclick="sessionStorage.clear(); window.location.href='ma.html'"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+</aside>
+
+<div class="main-wrapper">
+    <header class="top-navbar">
+        <div class="navbar-left">
+            <button class="sidebar-toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <h4 class="page-title" id="page-title-header">Admin Dashboard</h4>
+        </div>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search..." class="search-input" id="search-input-field">
+        </div>
+        <div class="nav-controls">
+            <select id="lang-select" class="lang-select">
+                <option value="en">English</option>
+                <option value="am">አማርኛ</option>
+            </select>
+            <div class="theme-toggle">
+                <button id="theme-toggle-btn" class="theme-toggle-btn" type="button">
+                    <i class="fas fa-moon"></i>
+                    <span>Theme</span>
+                </button>
+            </div>
+        </div>
+        <div class="user-profile">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Admin" alt="Profile" class="profile-pic">
+            <span id="user-name">Admin</span>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="tab-content">
+            <!-- ========== DASHBOARD TAB ========== -->
+            <div class="tab-pane fade show active" id="dashboard">
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-sm-6 col-lg-3"><div class="stat-card"><h6>Monthly Revenue</h6><p class="stat-value">2,645,850 Br</p><small><i class="fas fa-arrow-up text-success"></i> 12.5%</small></div></div>
+                    <div class="col-12 col-sm-6 col-lg-3"><div class="stat-card"><h6>Active Rentals</h6><p class="stat-value">512</p><small>Currently active</small></div></div>
+                    <div class="col-12 col-sm-6 col-lg-3"><div class="stat-card"><h6>Registered Users</h6><p class="stat-value">3,245</p><small><i class="fas fa-arrow-up text-success"></i> 8.7%</small></div></div>
+                    <div class="col-12 col-sm-6 col-lg-3"><div class="stat-card"><h6>Total Assets</h6><p class="stat-value">2,847</p><small>Listed on platform</small></div></div>
+                </div>
+                <div class="content-card">
+                    <div class="card-header"><h5>Platform Revenue Trend</h5></div>
+                    <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+                </div>
+                <div class="content-card">
+                    <div class="card-header"><h5>Recent Transactions</h5><a href="#" style="color: var(--gold-primary)">View All →</a></div>
+                    <div class="table-responsive"><table class="transaction-table"><thead><tr><th>Order ID</th><th>Asset</th><th>User</th><th>Status</th><th>Amount</th></tr></thead>
+                    <tbody><tr><td>#ORD-001</td><td>Canon EOS R5</td><td>Abebe K.</td><td><span class="status-badge available">Active</span></td><td>5,500 Br</td></tr>
+                    <tr><td>#ORD-002</td><td>Tesla Model S</td><td>Almaz D.</td><td><span class="status-badge completed">Completed</span></td><td>45,000 Br</td></tr>
+                    <tr><td>#ORD-003</td><td>DJI Drone Pro</td><td>Marta T.</td><td><span class="status-badge pending">Pending</span></td><td>3,200 Br</td></tr></tbody></table></div>
+                </div>
+            </div>
+
+            <!-- ========== ASSET MANAGEMENT TAB ========== -->
+            <div class="tab-pane fade" id="assets">
+                <div class="content-card">
+                    <div class="card-header"><h5><i class="fas fa-box"></i> Asset Management</h5><button class="btn-gold" data-bs-toggle="modal" data-bs-target="#addAssetModal"><i class="fas fa-plus"></i> Add New Asset</button></div>
+                    <div class="table-responsive"><table class="transaction-table"><thead><tr><th>Asset Name</th><th>Type</th><th>Owner</th><th>Price/Day</th><th>Status</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>Canon Cinema Kit</td><td>Camera</td><td>John D.</td><td>500 Br</td><td><span class="status-badge available">Available</span></td><td><i class="fas fa-edit" style="cursor:pointer; color: var(--gold-primary)"></i> <i class="fas fa-trash" style="cursor:pointer; color: var(--danger)"></i></td></tr>
+                        <tr><td>Tesla Model S</td><td>Vehicle</td><td>Michael S.</td><td>3,000 Br</td><td><span class="status-badge rented">Rented</span></td><td><i class="fas fa-edit" style="cursor:pointer; color: var(--gold-primary)"></i> <i class="fas fa-trash" style="cursor:pointer; color: var(--danger)"></i></td></tr>
+                        <tr><td>NVIDIA H100</td><td>Computing</td><td>Tech Corp</td><td>2,000 Br</td><td><span class="status-badge available">Available</span></td><td><i class="fas fa-edit" style="cursor:pointer; color: var(--gold-primary)"></i> <i class="fas fa-trash" style="cursor:pointer; color: var(--danger)"></i></td></tr>
+                    </tbody></table></div>
+                </div>
+            </div>
+
+            <!-- ========== RENTAL ORDERS TAB ========== -->
+            <div class="tab-pane fade" id="orders">
+                <div class="content-card">
+                    <div class="card-header"><h5><i class="fas fa-shopping-cart"></i> Rental Orders</h5></div>
+                    <div class="table-responsive"><table class="transaction-table"><thead><tr><th>Order ID</th><th>Renter Name</th><th>Asset</th><th>Duration</th><th>Price</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>#ORD-001</td><td>Abebe Kebede</td><td>Canon EOS R5</td><td>3 days</td><td>5,500 Br</td><td><button class="btn-outline-gold" style="padding:4px 12px; margin:2px">Approve</button> <button class="btn-outline-gold" style="padding:4px 12px; border-color:var(--danger); color:var(--danger)">Reject</button></td></tr>
+                        <tr><td>#ORD-002</td><td>Marta Tekle</td><td>DJI Drone Pro</td><td>7 days</td><td>12,000 Br</td><td><button class="btn-outline-gold" style="padding:4px 12px; margin:2px">Approve</button> <button class="btn-outline-gold" style="padding:4px 12px; border-color:var(--danger); color:var(--danger)">Reject</button></td></tr>
+                        <tr><td>#ORD-003</td><td>Almaz Desta</td><td>Tesla Model S</td><td>2 days</td><td>45,000 Br</td><td><span class="status-badge completed">Completed</span></td></tr>
+                    </tbody></table></div>
+                </div>
+            </div>
+
+            <!-- ========== USERS MANAGEMENT TAB ========== -->
+            <div class="tab-pane fade" id="users">
+                <div class="content-card">
+                    <div class="card-header"><h5><i class="fas fa-users"></i> Registered Users</h5><button class="btn-gold"><i class="fas fa-user-plus"></i> Add User</button></div>
+                    <div class="table-responsive"><table class="transaction-table"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Joined</th><th>Actions</th></tr></thead>
+                    <tbody>
+                        <tr><td>Abebe Kebede</td><td>abebe@example.com</td><td>Client</td><td><span class="status-badge available">Active</span></td><td>Jan 2025</td><td><i class="fas fa-edit" style="cursor:pointer; color: var(--gold-primary)"></i> <i class="fas fa-ban" style="cursor:pointer; color: var(--danger)"></i></td></tr>
+                        <tr><td>Marta Tesfaye</td><td>marta@example.com</td><td>Lessor</td><td><span class="status-badge available">Active</span></td><td>Feb 2025</td><td><i class="fas fa-edit" style="cursor:pointer; color: var(--gold-primary)"></i> <i class="fas fa-ban" style="cursor:pointer; color: var(--danger)"></i></td></tr>
+                        <tr><td>Hirut Alemu</td><td>hirut@example.com</td><td>Lessee</td><td><span class="status-badge rented">Suspended</span></td><td>Mar 2025</td><td><i class="fas fa-edit" style="cursor:pointer; color: var(--gold-primary)"></i> <i class="fas fa-ban" style="cursor:pointer; color: var(--danger)"></i></td></tr>
+                    </tbody></table></div>
+                </div>
+            </div>
+
+            <!-- ========== ANALYTICS TAB ========== -->
+            <div class="tab-pane fade" id="analytics">
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-lg-3"><div class="stat-card"><h6>Total Revenue</h6><p class="stat-value" style="font-size:1.5rem">8.24M Br</p><span class="text-success">↑ 24.3%</span></div></div>
+                    <div class="col-6 col-lg-3"><div class="stat-card"><h6>Total Orders</h6><p class="stat-value" style="font-size:1.5rem">4,528</p><span class="text-success">↑ 15.8%</span></div></div>
+                    <div class="col-6 col-lg-3"><div class="stat-card"><h6>Active Users</h6><p class="stat-value" style="font-size:1.5rem">3,247</p><span class="text-success">↑ 32.1%</span></div></div>
+                    <div class="col-6 col-lg-3"><div class="stat-card"><h6>Conversion Rate</h6><p class="stat-value" style="font-size:1.5rem">68.5%</p><span class="text-success">↑ 5.2%</span></div></div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-12 col-lg-6"><div class="content-card"><div class="card-header"><h5>Rental Frequency by Category</h5></div><div class="chart-container"><canvas id="categoryChart"></canvas></div></div></div>
+                    <div class="col-12 col-lg-6"><div class="content-card"><div class="card-header"><h5>Monthly User Growth</h5></div><div class="chart-container"><canvas id="userGrowthChart"></canvas></div></div></div>
+                </div>
+            </div>
+
+            <!-- ========== SETTINGS TAB ========== -->
+            <div class="tab-pane fade" id="settings">
+                <div class="row g-3">
+                    <div class="col-12 col-lg-6"><div class="content-card"><div class="card-header"><h5>Store Information</h5></div>
+                        <form><div class="mb-3"><label class="form-label">Store Name</label><input type="text" class="form-control" value="CityWide Rental"></div>
+                        <div class="mb-3"><label class="form-label">Contact Email</label><input type="email" class="form-control" value="admin@citywide.com"></div>
+                        <div class="mb-3"><label class="form-label">Phone Number</label><input type="tel" class="form-control" value="+251 911 123 456"></div>
+                        <button class="btn-gold">Save Changes</button></form>
+                    </div></div>
+                    <div class="col-12 col-lg-6"><div class="content-card"><div class="card-header"><h5>Rental Settings</h5></div>
+                        <form><div class="mb-3"><label class="form-label">Default Rental Rate (%)</label><input type="number" class="form-control" value="15"></div>
+                        <div class="mb-3"><label class="form-label">Security Deposit (%)</label><input type="number" class="form-control" value="20"></div>
+                        <div class="mb-3"><label class="form-label">Max Rental Days</label><input type="number" class="form-control" value="30"></div>
+                        <button class="btn-gold">Update Settings</button></form>
+                    </div></div>
+                    <div class="col-12"><div class="content-card"><div class="card-header"><h5>Admin Profile</h5></div>
+                        <form><div class="row"><div class="col-md-6 mb-3"><label class="form-label">Full Name</label><input type="text" class="form-control" value="Admin User"></div>
+                        <div class="col-md-6 mb-3"><label class="form-label">Email</label><input type="email" class="form-control" value="admin@citywide.com"></div>
+                        <div class="col-md-6 mb-3"><label class="form-label">Current Password</label><input type="password" class="form-control" placeholder="********"></div>
+                        <div class="col-md-6 mb-3"><label class="form-label">New Password</label><input type="password" class="form-control" placeholder="********"></div></div>
+                        <button class="btn-gold">Update Profile</button></form>
+                    </div></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer><p>© 2026 CityWide Rental | Admin Dashboard</p></footer>
+</div>
+
+<!-- Add Asset Modal -->
+<div class="modal fade" id="addAssetModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content" style="background: var(--bg-card); border: 1px solid var(--border-gold);"><div class="modal-header border-gold"><h5 class="modal-title">Add New Asset</h5><button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button></div>
+<div class="modal-body"><form><div class="mb-3"><label class="form-label">Asset Name</label><input type="text" class="form-control" placeholder="e.g., Canon EOS R5"></div>
+<div class="mb-3"><label class="form-label">Category</label><select class="form-select"><option>Camera</option><option>Vehicle</option><option>Computing</option><option>Apparel</option></select></div>
+<div class="mb-3"><label class="form-label">Daily Rate (Br)</label><input type="number" class="form-control" placeholder="500"></div>
+<div class="mb-3"><label class="form-label">Owner Name</label><input type="text" class="form-control" placeholder="Owner name"></div>
+<button type="submit" class="btn-gold w-100">Add Asset</button></form></div></div></div></div>
+
+<script>
+    const userName = sessionStorage.getItem("currentUserName") || sessionStorage.getItem("currentUser") || "Admin";
+    document.getElementById("user-name").textContent = userName.split('@')[0];
+    function toggleSidebar() { document.getElementById("sidebar").classList.toggle("active"); }
+    document.addEventListener("click", function(e) {
+        const sidebar = document.getElementById("sidebar");
+        const toggleBtn = document.querySelector(".sidebar-toggle-btn");
+        if (window.innerWidth < 992 && sidebar && toggleBtn && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+            sidebar.classList.remove("active");
+        }
+    });
+    
+    // ========== TRANSLATION DICTIONARY ==========
+    const adminTranslations = {
+        en: {
+            dashTitle: "Admin Dashboard",
+            searchPlaceholder: "Search...",
+            tabDashboard: "<i class='fas fa-chart-line'></i> Dashboard",
+            tabAssets: "<i class='fas fa-box'></i> Asset Management",
+            tabOrders: "<i class='fas fa-shopping-cart'></i> Rental Orders",
+            tabUsers: "<i class='fas fa-users'></i> Users Management",
+            tabAnalytics: "<i class='fas fa-chart-bar'></i> Analytics",
+            tabSettings: "<i class='fas fa-cog'></i> Settings",
+            sidebarLogout: "<i class='fas fa-sign-out-alt'></i> Logout",
+            kpiRevenue: "Monthly Revenue",
+            kpiRentals: "Active Rentals",
+            kpiUsers: "Registered Users",
+            kpiAssets: "Total Assets",
+            chartTitle: "Platform Revenue Trend",
+            tableTitle: "Recent Transactions",
+            footerText: "© 2026 CityWide Rental | Admin Dashboard"
+        },
+        am: {
+            dashTitle: "የአስተዳዳሪ መቆጣጠሪያ",
+            searchPlaceholder: "ፈልግ...",
+            tabDashboard: "<i class='fas fa-chart-line'></i> ዳሽቦርድ",
+            tabAssets: "<i class='fas fa-box'></i> ንብረት ሥራ",
+            tabOrders: "<i class='fas fa-shopping-cart'></i> የኪራይ ትዕዛዞች",
+            tabUsers: "<i class='fas fa-users'></i> ተጠቃሚዎች ሥራ",
+            tabAnalytics: "<i class='fas fa-chart-bar'></i> ትንተና",
+            tabSettings: "<i class='fas fa-cog'></i> ቅንብሮች",
+            sidebarLogout: "<i class='fas fa-sign-out-alt'></i> ውጣ",
+            kpiRevenue: "ወርሃዊ ገቢ",
+            kpiRentals: "ንቁ ኪራዮች",
+            kpiUsers: "የተመዘገቡ ተጠቃሚዎች",
+            kpiAssets: "ጠቅላላ ንብረቶች",
+            chartTitle: "የመድረክ የገቢ አዝማሚያ",
+            tableTitle: "የቅርብ ጊዜ ግብይቶች",
+            footerText: "© 2026 ሲቲዋይድ ረንታል | የአስተዳዳሪ ዳሽቦርድ"
+        }
+    };
+
+    let adminLang = localStorage.getItem('language') || 'en';
+
+    function translateAdminDashboard(lang) {
+        adminLang = lang;
+        localStorage.setItem('language', lang);
+        const t = adminTranslations[lang];
+        if (!t) return;
+
+        // Navigation Header & Search
+        const searchInput = document.getElementById('search-input-field');
+        if (searchInput) searchInput.placeholder = t.searchPlaceholder;
+
+        // Sidebar Links
+        const links = document.querySelectorAll('#sidebar .nav-link-custom');
+        if (links.length >= 6) {
+            links[0].innerHTML = t.tabDashboard;
+            links[1].innerHTML = t.tabAssets;
+            links[2].innerHTML = t.tabOrders;
+            links[3].innerHTML = t.tabUsers;
+            links[4].innerHTML = t.tabAnalytics;
+            links[5].innerHTML = t.tabSettings;
+        }
+
+        // Sidebar footer
+        const logoutBtn = document.querySelector('.sidebar-footer .nav-link-custom');
+        if (logoutBtn) logoutBtn.innerHTML = t.sidebarLogout;
+
+        // Stat Card Labels
+        const statCards = document.querySelectorAll('.stat-card');
+        if (statCards.length >= 4) {
+            statCards[0].querySelector('h6').textContent = t.kpiRevenue;
+            statCards[1].querySelector('h6').textContent = t.kpiRentals;
+            statCards[2].querySelector('h6').textContent = t.kpiUsers;
+            statCards[3].querySelector('h6').textContent = t.kpiAssets;
+        }
+
+        // Card Headers
+        const contentCards = document.querySelectorAll('.content-card');
+        if (contentCards.length >= 2) {
+            const hTitle = contentCards[0].querySelector('.card-header h5');
+            if (hTitle) hTitle.textContent = t.chartTitle;
+
+            const tTitle = contentCards[1].querySelector('.card-header h5');
+            if (tTitle) tTitle.textContent = t.tableTitle;
+        }
+
+        // Footer
+        const foot = document.querySelector('footer p');
+        if (foot) foot.textContent = t.footerText;
+        
+        // Update header page title to the currently active tab name
+        const activeLink = document.querySelector('.nav-link-custom.active');
+        if (activeLink) {
+            document.getElementById("page-title-header").textContent = activeLink.textContent.trim();
+        } else {
+            document.getElementById("page-title-header").textContent = t.dashTitle;
+        }
+    }
+
+    document.querySelectorAll(".nav-link-custom").forEach(btn => {
+        btn.addEventListener("click", function() {
+            document.querySelectorAll(".nav-link-custom").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+            document.getElementById("page-title-header").textContent = this.textContent.trim();
         });
-      }
-    </script>
-    <script src="theme.js"></script>
-  </body>
+    });
+
+    // ========== THEME TOGGLE ==========
+    function updateThemeUI() {
+        const isLight = document.body.classList.contains('light-mode');
+        const headerIcon = document.querySelector('#theme-toggle-btn i');
+        if (headerIcon) {
+            if (isLight) {
+                headerIcon.className = 'fas fa-sun';
+            } else {
+                headerIcon.className = 'fas fa-moon';
+            }
+        }
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('light-mode');
+        localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        updateThemeUI();
+    }
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateThemeUI();
+        document.getElementById('theme-toggle-btn')?.addEventListener('click', toggleTheme);
+
+        const langSelect = document.getElementById('lang-select');
+        if (langSelect) {
+            langSelect.value = adminLang;
+            langSelect.addEventListener('change', (e) => translateAdminDashboard(e.target.value));
+        }
+        translateAdminDashboard(adminLang);
+    });
+
+    // Charts
+    new Chart(document.getElementById('revenueChart'), { type: 'line', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], datasets: [{ label: 'Revenue (Br)', data: [1200000, 1400000, 1800000, 1600000, 2000000, 2100000], borderColor: '#FFB347', backgroundColor: 'rgba(255,179,71,0.1)', tension: 0.4, fill: true }] }, options: { responsive: true, maintainAspectRatio: false } });
+    new Chart(document.getElementById('categoryChart'), { type: 'doughnut', data: { labels: ['Cameras', 'Vehicles', 'Computing', 'Apparel'], datasets: [{ data: [45, 30, 15, 10], backgroundColor: ['#FFB347', '#ff6b6b', '#4caf50', '#2196f3'] }] }, options: { responsive: true, maintainAspectRatio: false } });
+    new Chart(document.getElementById('userGrowthChart'), { type: 'bar', data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], datasets: [{ label: 'New Users', data: [120, 190, 300, 250, 400, 460], backgroundColor: '#FFB347', borderRadius: 8 }] }, options: { responsive: true, maintainAspectRatio: false } });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

@@ -1,66 +1,73 @@
 /* ==========================================================================
-   1. PREMIUM DARK & GOLD CORE STYLES
+   PREMIUM DARK & GOLD CORE STYLES - CityWide Rental
    ========================================================================== */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
 }
 
 :root {
   --bg-dark: #0b0b0b;
   --bg-card: #161616;
-  --card-bg: #0b0505;
+  --card-bg: #161616;
   --nav-bg: rgba(11, 11, 11, 0.95);
   --auth-bg: radial-gradient(circle at center, #151515 0%, #0b0b0b 100%);
   --input-bg: #1c1c1c;
   --input-focus-bg: #222;
-  --footer-bg: #050505;
-  --gold-primary: #dfb15b;
-  --gold-secondary: #c5963f;
+  --footer-bg: #0a0a0a;
+  --gold-primary: #FFB347;
+  --gold-secondary: #FF9E1A;
   --text-light: #f5f5f5;
   --text-muted: #a0a0a0;
-  --border-gold: rgba(223, 177, 91, 0.2);
+  --border-gold: rgba(255, 179, 71, 0.2);
+  --shadow-card: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
+  --transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
 }
 
 body.light-mode {
-  --bg-dark: #f4f5f6;
+  --bg-dark: #f8fafc;
   --bg-card: #ffffff;
   --card-bg: #ffffff;
   --nav-bg: rgba(255, 255, 255, 0.95);
   --auth-bg: radial-gradient(circle at center, #f7f7f7 0%, #eef0f2 100%);
   --input-bg: #ffffff;
   --input-focus-bg: #f0f0f0;
-  --footer-bg: #f0f0f0;
-  --text-light: #111111;
-  --text-muted: #606060;
-  --border-gold: rgba(223, 177, 91, 0.15);
+  --footer-bg: #f1f5f9;
+  --text-light: #1e293b;
+  --text-muted: #64748b;
+  --border-gold: rgba(255, 179, 71, 0.25);
+  --shadow-card: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 body {
   background-color: var(--bg-dark);
   color: var(--text-light);
+  font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
+  transition: background 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
 }
 
 /* ==========================================================================
-   2. NAVIGATION BAR STYLING (ከአርማ ጋር)
+   NAVIGATION BAR
    ========================================================================== */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 8%;
+  padding: 1rem 5%;
   background-color: var(--nav-bg);
   border-bottom: 1px solid var(--border-gold);
   position: sticky;
   top: 0;
   z-index: 100;
   backdrop-filter: blur(10px);
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
-/* Logo Container - በግራ በኩል አርማ እና ጽሑፍ */
 .logo-container {
   display: flex;
   align-items: center;
@@ -73,19 +80,17 @@ nav {
   transform: scale(1.02);
 }
 
-/* የአርማው ምስል */
 .web-logo {
-  height: 45px;
   width: 45px;
+  height: 45px;
   border-radius: 50%;
   border: 2px solid var(--gold-primary);
   object-fit: cover;
 }
 
-/* የአርማው ጽሑፍ */
 .logo-text {
-  font-family: "Poppins", sans-serif;
-  font-size: 24px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--text-light);
   letter-spacing: 0.5px;
@@ -95,159 +100,193 @@ nav {
   color: var(--gold-primary);
 }
 
-/* Navigation Menu */
 nav ul {
   display: flex;
   list-style: none;
   align-items: center;
   margin: 0;
   padding: 0;
-}
-
-nav ul li {
-  margin: 0 20px;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 nav ul li a {
   text-decoration: none;
   color: var(--text-muted);
   font-weight: 500;
-  font-size: 15px;
-  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  transition: var(--transition);
 }
 
 nav ul li a:hover,
 nav ul li a.active {
   color: var(--gold-primary);
-  text-shadow: 0 0 8px rgba(223, 177, 91, 0.4);
 }
 
 .nav-btn {
   background: var(--gold-primary);
   color: #0b0b0b !important;
   padding: 8px 22px;
-  border-radius: 30px;
+  border-radius: 40px;
   font-weight: 600 !important;
 }
 
 .nav-btn:hover {
   background: var(--gold-secondary);
   color: #0b0b0b !important;
-  text-shadow: none !important;
 }
 
-/* Nav Controls (Language + Theme) */
 .nav-controls {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 12px;
 }
 
 .lang-select {
-  background: rgba(223, 177, 91, 0.1);
+  background: rgba(255, 179, 71, 0.1);
   border: 1px solid var(--border-gold);
   color: var(--text-light);
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 6px 12px;
+  border-radius: 30px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 0.75rem;
+  transition: var(--transition);
 }
 
-.lang-select:focus {
-  outline: none;
+.lang-select:hover {
+  background: rgba(255, 179, 71, 0.2);
   border-color: var(--gold-primary);
 }
 
 .theme-toggle-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   border: 1px solid var(--border-gold);
-  background: transparent;
+  background: rgba(255, 179, 71, 0.1);
   color: var(--text-light);
-  padding: 8px 14px;
-  border-radius: 8px;
+  padding: 6px 14px;
+  border-radius: 30px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: 500;
+  transition: var(--transition);
+  font-size: 0.75rem;
 }
 
 .theme-toggle-btn:hover {
-  background: rgba(223, 177, 91, 0.1);
+  background: rgba(255, 179, 71, 0.2);
   color: var(--gold-primary);
   border-color: var(--gold-primary);
 }
 
 /* ==========================================================================
-   3. HERO SECTION
+   HERO SECTION
    ========================================================================== */
 .hero {
-  height: 85vh;
-  background: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.55)), 
-              url('https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?q=80&w=2070&auto=format');
-  background-size: cover;
-  background-position: center;
+  min-height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding: 2rem 1.5rem;
+  background: transparent;
 }
 
 .hero-content {
-  max-width: 750px;
-  padding: 20px;
+  max-width: 800px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  padding: 2rem;
+  border-radius: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.light-mode .hero-content {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--border-gold);
 }
 
 .hero-content h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 52px;
-  margin-bottom: 20px;
+  font-size: 2.5rem;
   font-weight: 800;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+
+body.light-mode .hero-content h1,
+body.light-mode .hero-content p {
+  color: var(--text-light);
 }
 
 .hero-content p {
-  font-size: 18px;
-  margin-bottom: 30px;
-  opacity: 0.9;
+  color: #f1f1f1;
+  max-width: 700px;
+  margin: 15px auto;
+  font-size: 1rem;
   line-height: 1.6;
 }
 
 .hero-content button {
   background: var(--gold-primary);
+  color: #1F2A3A;
   border: none;
-  padding: 14px 35px;
-  font-size: 16px;
+  padding: 12px 28px;
+  border-radius: 50px;
   font-weight: 600;
-  border-radius: 40px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: all 0.3s;
-  color: #0b0b0b;
+  transition: var(--transition);
 }
 
 .hero-content button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 20px rgba(223, 177, 91, 0.4);
+  transform: translateY(-3px);
+  background: var(--gold-secondary);
 }
 
 /* ==========================================================================
-   4. CARDS SECTION
+   RENTALS / ASSETS SECTION - 8 CARDS
    ========================================================================== */
+.rentals {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  padding: 60px 20px !important;
+  margin: 20px 0;
+  border-radius: 0;
+}
+
+body.light-mode .rentals {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.rentals h2 {
+  color: white;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+body.light-mode .rentals h2 {
+  color: var(--text-light);
+}
+
 .card {
   background: var(--card-bg);
   border: 1px solid var(--border-gold);
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
-  transition: all 0.3s;
+  transition: var(--transition);
   height: 100%;
 }
 
 .card:hover {
   transform: translateY(-8px);
   border-color: var(--gold-primary);
+  box-shadow: var(--shadow-card);
 }
 
 .card-img-container {
-  height: 240px;
+  height: 220px;
   overflow: hidden;
 }
 
@@ -255,7 +294,7 @@ nav ul li a.active {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s;
+  transition: transform 0.5s ease;
 }
 
 .card:hover .card-img-container img {
@@ -263,113 +302,277 @@ nav ul li a.active {
 }
 
 .card-body {
-  padding: 20px;
+  padding: 1.2rem;
 }
 
 .card-body h3 {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   margin-bottom: 8px;
+  color: var(--text-light);
+}
+
+.rating {
+  margin: 8px 0;
+}
+
+.stars {
+  color: #fbbf24;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+}
+
+.rating-count {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-left: 5px;
 }
 
 .price {
   color: var(--gold-primary);
   font-weight: 700;
-  font-size: 16px;
+  font-size: 1rem;
+  margin-top: 8px;
 }
 
 /* ==========================================================================
-   5. ABOUT SECTION
+   ABOUT SECTION
    ========================================================================== */
 .about {
-  padding: 80px 100px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin: 30px auto;
+  width: 90%;
+  padding: 40px;
   text-align: center;
-  background: linear-gradient(135deg, var(--border-gold), transparent);
+}
+
+body.light-mode .about {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--border-gold);
 }
 
 .about h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 36px;
+  color: var(--gold-primary);
+  font-size: 1.8rem;
   margin-bottom: 20px;
   font-weight: 700;
 }
 
 .about p {
+  color: #ddd;
+  line-height: 1.7;
+  font-size: 1rem;
   max-width: 800px;
   margin: 0 auto;
-  line-height: 1.8;
-  font-size: 16px;
+}
+
+body.light-mode .about p {
+  color: var(--text-muted);
 }
 
 /* ==========================================================================
-   6. FOOTER
+   FOOTER
    ========================================================================== */
 footer {
-  background-color: var(--footer-bg);
-  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
   text-align: center;
-  padding: 35px;
-  font-size: 12px;
-  border-top: 1px solid rgba(223, 177, 91, 0.06);
+  padding: 25px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+  margin-top: 20px;
+}
+
+body.light-mode footer {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-muted);
 }
 
 /* ==========================================================================
-   7. RESPONSIVE DESIGN
+   RESPONSIVE DESIGN
    ========================================================================== */
 @media (max-width: 992px) {
   nav {
     flex-direction: column;
-    gap: 15px;
-    padding: 15px 5%;
+    padding: 1rem 4%;
   }
   
   nav ul {
-    flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-  }
-  
-  nav ul li {
-    margin: 0 10px;
   }
   
   .hero-content h1 {
-    font-size: 36px;
+    font-size: 2rem;
   }
   
   .hero-content p {
-    font-size: 16px;
+    font-size: 0.9rem;
+  }
+  
+  .rentals h2 {
+    font-size: 1.6rem;
+  }
+  
+  .card-img-container {
+    height: 200px;
   }
   
   .about {
-    padding: 50px 20px;
+    padding: 30px 25px;
   }
   
   .about h2 {
-    font-size: 28px;
+    font-size: 1.5rem;
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .hero {
-    height: 70vh;
+    min-height: 70vh;
+    padding: 1.5rem;
+  }
+  
+  .hero-content {
+    padding: 1.5rem;
   }
   
   .hero-content h1 {
-    font-size: 28px;
+    font-size: 1.6rem;
   }
   
+  .hero-content p {
+    font-size: 0.85rem;
+  }
+  
+  .hero-content button {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+  
+  .rentals {
+    padding: 40px 15px !important;
+  }
+  
+  .rentals h2 {
+    font-size: 1.4rem;
+  }
+  
+  .card-img-container {
+    height: 180px;
+  }
+  
+  .card-body h3 {
+    font-size: 0.9rem;
+  }
+  
+  .price {
+    font-size: 0.9rem;
+  }
+  
+  .about {
+    padding: 25px 20px;
+    width: 95%;
+  }
+  
+  .about h2 {
+    font-size: 1.3rem;
+  }
+  
+  .about p {
+    font-size: 0.85rem;
+  }
+  
+  footer {
+    padding: 18px;
+    font-size: 0.65rem;
+  }
+  
+  .stars {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
   .logo-text {
-    font-size: 18px;
+    font-size: 1rem;
   }
   
   .web-logo {
-    height: 35px;
     width: 35px;
+    height: 35px;
   }
   
-  .nav-controls {
-    width: 100%;
-    justify-content: center;
+  nav ul {
+    gap: 0.7rem;
+  }
+  
+  nav ul li a {
+    font-size: 0.7rem;
+  }
+  
+  .nav-btn {
+    padding: 4px 12px;
+  }
+  
+  .lang-select, .theme-toggle-btn {
+    font-size: 0.65rem;
+    padding: 4px 10px;
+  }
+  
+  .theme-toggle-btn span {
+    display: none;
+  }
+  
+  .hero-content h1 {
+    font-size: 1.3rem;
+  }
+  
+  .hero-content p {
+    font-size: 0.75rem;
+  }
+  
+  .hero-content button {
+    padding: 8px 20px;
+    font-size: 0.8rem;
+  }
+  
+  .rentals h2 {
+    font-size: 1.2rem;
+  }
+  
+  .card-img-container {
+    height: 160px;
+  }
+  
+  .card-body {
+    padding: 0.8rem;
+  }
+  
+  .card-body h3 {
+    font-size: 0.8rem;
+  }
+  
+  .price {
+    font-size: 0.8rem;
+  }
+  
+  .about h2 {
+    font-size: 1.1rem;
+  }
+  
+  .about p {
+    font-size: 0.7rem;
   }
 }
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+}
+

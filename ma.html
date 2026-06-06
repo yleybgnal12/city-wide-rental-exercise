@@ -18,10 +18,10 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-                        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1920&auto=format&fit=crop');
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),
+                        url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2070&auto=format&fit=crop');
             background-size: cover;
-            background-position: center;
+            background-position: center center;
             background-repeat: no-repeat;
             background-attachment: fixed;
             min-height: 100vh;
@@ -183,19 +183,40 @@
             background: #FF9E1A;
         }
 
-        /* ========== የተመረጡ ንብረቶች ========== */
+        /* ========== የተመረጡ ንብረቶች - ሙሉ በሙሉ በመሃል ========== */
         .rentals {
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(8px);
             padding: 50px 20px !important;
             margin: 20px 0;
+            text-align: center;
         }
 
         .rentals h2 {
             color: white;
             font-weight: 700;
             font-size: 1.8rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        /* ካርዶችን ሙሉ በሙሉ በመሃል ለማስተካከል */
+        .cards-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 0 -15px;
+        }
+
+        .col-card {
+            padding: 0 15px;
+            margin-bottom: 30px;
         }
 
         .card {
@@ -203,12 +224,14 @@
             border: none;
             border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.3s;
-            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            width: 100%;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
         }
 
         .card-img-container {
@@ -220,15 +243,21 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.4s;
+        }
+
+        .card:hover .card-img-container img {
+            transform: scale(1.05);
         }
 
         .card-body {
             padding: 1.2rem;
+            text-align: left;
         }
 
         .card-body h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 700;
             margin-bottom: 8px;
             color: #1F2A3A;
         }
@@ -237,6 +266,49 @@
             color: #FF8C00;
             font-weight: 700;
             font-size: 1rem;
+            margin-top: 8px;
+        }
+        
+        .rating {
+            margin: 8px 0;
+        }
+        
+        .stars {
+            color: #fbbf24;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+        }
+        
+        .rating-count {
+            font-size: 0.65rem;
+            color: #666;
+            margin-left: 5px;
+        }
+
+        /* Responsive column widths */
+        @media (min-width: 1200px) {
+            .col-card {
+                flex: 0 0 25%;
+                max-width: 25%;
+            }
+        }
+        @media (min-width: 992px) and (max-width: 1199px) {
+            .col-card {
+                flex: 0 0 33.333%;
+                max-width: 33.333%;
+            }
+        }
+        @media (min-width: 768px) and (max-width: 991px) {
+            .col-card {
+                flex: 0 0 50%;
+                max-width: 50%;
+            }
+        }
+        @media (max-width: 767px) {
+            .col-card {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
         }
 
         /* ========== ስለ መድረኩ ========== */
@@ -373,6 +445,12 @@
             .card-img-container {
                 height: 160px;
             }
+            .card-body h3 {
+                font-size: 0.9rem;
+            }
+            .price {
+                font-size: 0.9rem;
+            }
             .about h2 {
                 font-size: 1.2rem;
             }
@@ -384,9 +462,10 @@
             }
         }
 
+        /* Light Mode */
         body.light-mode {
-            background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)),
-                        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1920&auto=format&fit=crop');
+            background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
+                        url('https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?q=80&w=2070&auto=format&fit=crop');
         }
         body.light-mode nav {
             background: rgba(255,255,255,0.95);
@@ -460,39 +539,106 @@
         </div>
     </section>
 
-    <section id="rentals" class="rentals container py-5">
-        <h2 id="featured-title" class="text-center mb-4">Featured Collections</h2>
-        <div class="row g-4">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-img-container">
-                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1000&auto=format&fit=crop" alt="Professional Camera Kit">
-                    </div>
-                    <div class="card-body">
-                        <h3 id="card1-title">Cinematography Kits</h3>
-                        <p class="price">500 Birr / Day</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-img-container">
-                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1000&auto=format&fit=crop" alt="Luxury Car Fleet">
-                    </div>
-                    <div class="card-body">
-                        <h3 id="card2-title">Luxury Vehicles</h3>
-                        <p class="price">3000 Birr / Day</p>
+    <!-- ========== FEATURED COLLECTIONS - 7 ASSETS (ሙሉ በሙሉ በመሃል) ========== -->
+    <section id="rentals" class="rentals">
+        <div class="cards-container">
+            <h2 id="featured-title">Featured Collections</h2>
+            <div class="row">
+                <!-- 1. Cinematography Kits -->
+                <div class="col-card">
+                    <div class="card h-100">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500&h=300&fit=crop" alt="Professional Camera Kit">
+                        </div>
+                        <div class="card-body">
+                            <h3 id="card1-title">Cinematography Kits</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span class="rating-count">(124 reviews)</span></div>
+                            <p class="price">500 Birr / Day</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-img-container">
-                        <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=1000&auto=format&fit=crop" alt="Designer Shoes">
+
+                <!-- 2. Luxury Vehicles -->
+                <div class="col-card">
+                    <div class="card h-100">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&h=300&fit=crop" alt="Luxury Car Fleet">
+                        </div>
+                        <div class="card-body">
+                            <h3 id="card2-title">Luxury Vehicles</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span class="rating-count">(89 reviews)</span></div>
+                            <p class="price">3,000 Birr / Day</p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h3 id="card3-title">Exclusive Apparel</h3>
-                        <p class="price">400 Birr / Day</p>
+                </div>
+
+                <!-- 3. Exclusive Apparel -->
+                <div class="col-card">
+                    <div class="card h-100">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500&h=300&fit=crop" alt="Designer Shoes">
+                        </div>
+                        <div class="card-body">
+                            <h3 id="card3-title">Exclusive Apparel</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span class="rating-count">(203 reviews)</span></div>
+                            <p class="price">400 Birr / Day</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. DJI Mavic Pro Drone -->
+                <div class="col-card">
+                    <div class="card h-100">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=500&h=300&fit=crop" alt="DJI Drone">
+                        </div>
+                        <div class="card-body">
+                            <h3 id="card4-title">DJI Mavic Pro Drone Kit</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span class="rating-count">(67 reviews)</span></div>
+                            <p class="price">850 Birr / Day</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. High-End Gaming PC -->
+                <div class="col-card">
+                    <div class="card h-100">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=500&h=300&fit=crop" alt="Gaming PC">
+                        </div>
+                        <div class="card-body">
+                            <h3 id="card5-title">HPC Gaming Node (RTX 4090)</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span class="rating-count">(42 reviews)</span></div>
+                            <p class="price">1,200 Birr / Day</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Premium Camping Gear -->
+                <div class="col-card">
+                    <div class="card h-100">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=500&h=300&fit=crop" alt="Camping Gear">
+                        </div>
+                        <div class="card-body">
+                            <h3 id="card6-title">Premium Overland Camping Gear</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span class="rating-count">(56 reviews)</span></div>
+                            <p class="price">650 Birr / Day</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Electric Scooter -->
+                <div class="col-card">
+                    <div class="card h-100">
+                        <div class="card-img-container">
+                            <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?w=500&h=300&fit=crop" alt="Electric Scooter">
+                        </div>
+                        <div class="card-body">
+                            <h3 id="card7-title">Electric Adventure Scooters</h3>
+                            <div class="rating"><span class="stars">★★★★★</span><span class="rating-count">(98 reviews)</span></div>
+                            <p class="price">450 Birr / Day</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -514,8 +660,44 @@
         }
 
         const translations = {
-            en: { home: "Home", featured: "Featured Gear", about: "About Platform", signin: "Sign In", register: "Register", heroTitle: "Rent High-End Assets Across Your City", heroDesc: "Experience premier peer-to-peer asset pooling. Save capital and reduce local carbon waste by securing luxury vehicles, specialized computing nodes, and top-tier photography gear right inside your neighborhood network.", exploreBtn: "Explore Premium Fleet", featuredTitle: "Featured Collections", card1: "Cinematography Kits", card2: "Luxury Vehicles", card3: "Exclusive Apparel", aboutTitle: "About Our Infrastructure", aboutDesc: "CityWide Rental is an enterprise-grade peer-to-peer asset pooling system architected to streamline the local sharing economy. We eliminate operational friction points through modern dual-role user mapping, cryptographic escrow frameworks for security protection, and high-throughput hyper-local discovery metrics.", footer: "© 2026 CityWide Rental Software Engineering Consortium | Built with ❤️ by our Team | All Rights Reserved" },
-            am: { home: "መነሻ", featured: "የተመረጡ ንብረቶች", about: "ስለ መድረኩ", signin: "ግባ", register: "ተመዝገብ", heroTitle: "ከፍተኛ ጥራት ያላቸውን ንብረቶች በከተማዎ ውስጥ ተከራዩ", heroDesc: "ከአካባቢዎ ሰዎች ጋር በመተባበር የቅንጦት ተሽከርካሪዎችን፣ ልዩ የኮምፒውተር መሳሪያዎችን እና ከፍተኛ ደረጃ የፎቶግራፍ መሳሪያዎችን በመጠቀም ገንዘብ ይቆጥቡ እና የአካባቢ ብክለትን ይቀንሱ።", exploreBtn: "ንብረቶችን ይመልከቱ", featuredTitle: "የተመረጡ ስብስቦች", card1: "ሲኒማቶግራፊ መሳሪያዎች", card2: "የቅንጦት ተሽከርካሪዎች", card3: "የምርጥ ልብሶች", aboutTitle: "ስለ መሠረተ ልማታችን", aboutDesc: "CityWide Rental የአካባቢ ማጋራት ኢኮኖሚን ለማሳለጥ የተዘጋጀ ዘመናዊ የንብረት ማጋሪያ ሥርዓት ነው። ባለሁለት ሚና የተጠቃሚ ካርታ፣ ለደህንነት ጥበቃ የሚረዳ ኢስክሮው ማዕቀፍ እና ፈጣን የአካባቢ ፍለጋ መለኪያዎችን ይጠቀማል።", footer: "© 2026 CityWide Rental ሶፍትዌር ምህንድስና ቡድን | በ❤️ የተሰራ | ሁሉም መብቶች ተጠብቀዋል" }
+            en: { 
+                home: "Home", featured: "Featured Gear", about: "About Platform", signin: "Sign In", register: "Register", 
+                heroTitle: "Rent High-End Assets Across Your City", 
+                heroDesc: "Experience premier peer-to-peer asset pooling. Save capital and reduce local carbon waste by securing luxury vehicles, specialized computing nodes, and top-tier photography gear right inside your neighborhood network.", 
+                exploreBtn: "Explore Premium Fleet", 
+                featuredTitle: "Featured Collections", 
+                card1: "Cinematography Kits", 
+                card2: "Luxury Vehicles", 
+                card3: "Exclusive Apparel", 
+                card4: "DJI Mavic Pro Drone Kit",
+                card5: "HPC Gaming Node (RTX 4090)",
+                card6: "Premium Overland Camping Gear",
+                card7: "Electric Adventure Scooters",
+                aboutTitle: "About Our Infrastructure", 
+                aboutDesc: "CityWide Rental is an enterprise-grade peer-to-peer asset pooling system architected to streamline the local sharing economy. We eliminate operational friction points through modern dual-role user mapping, cryptographic escrow frameworks for security protection, and high-throughput hyper-local discovery metrics.", 
+                footer: "© 2026 CityWide Rental Software Engineering Consortium | Built with ❤️ by our Team | All Rights Reserved" 
+            },
+            am: { 
+                home: "መነሻ", 
+                featured: "የተመረጡ ንብረቶች", 
+                about: "ስለ መድረኩ", 
+                signin: "ግባ", 
+                register: "ተመዝገብ", 
+                heroTitle: "ከፍተኛ ጥራት ያላቸውን ንብረቶች በከተማዎ ውስጥ ተከራዩ", 
+                heroDesc: "ከአካባቢዎ ሰዎች ጋር በመተባበር የቅንጦት ተሽከርካሪዎችን፣ ልዩ የኮምፒውተር መሳሪያዎችን እና ከፍተኛ ደረጃ የፎቶግራፍ መሳሪያዎችን በመጠቀም ገንዘብ ይቆጥቡ እና የአካባቢ ብክለትን ይቀንሱ።", 
+                exploreBtn: "ንብረቶችን ይመልከቱ", 
+                featuredTitle: "የተመረጡ ስብስቦች", 
+                card1: "ሲኒማቶግራፊ መሳሪያዎች", 
+                card2: "የቅንጦት ተሽከርካሪዎች", 
+                card3: "የምርጥ ልብሶች",
+                card4: "ዲጄአይ ማቪክ ፕሮ ድሮን",
+                card5: "ኤችፒሲ ጌሚንግ ኖድ (RTX 4090)",
+                card6: "ፕሪሚየም ካምፕ ጊር",
+                card7: "ኤሌክትሪክ ስኩተር",
+                aboutTitle: "ስለ መሠረተ ልማታችን", 
+                aboutDesc: "CityWide Rental የአካባቢ ማጋራት ኢኮኖሚን ለማሳለጥ የተዘጋጀ ዘመናዊ የንብረት ማጋሪያ ሥርዓት ነው። ባለሁለት ሚና የተጠቃሚ ካርታ፣ ለደህንነት ጥበቃ የሚረዳ ኢስክሮው ማዕቀፍ እና ፈጣን የአካባቢ ፍለጋ መለኪያዎችን ይጠቀማል።", 
+                footer: "© 2026 CityWide Rental ሶፍትዌር ምህንድስና ቡድን | በ❤️ የተሰራ | ሁሉም መብቶች ተጠብቀዋል" 
+            }
         };
 
         let currentLang = localStorage.getItem('language') || 'en';
@@ -537,6 +719,10 @@
             document.getElementById('card1-title').textContent = t.card1;
             document.getElementById('card2-title').textContent = t.card2;
             document.getElementById('card3-title').textContent = t.card3;
+            document.getElementById('card4-title').textContent = t.card4;
+            document.getElementById('card5-title').textContent = t.card5;
+            document.getElementById('card6-title').textContent = t.card6;
+            document.getElementById('card7-title').textContent = t.card7;
             document.getElementById('about-title').textContent = t.aboutTitle;
             document.getElementById('about-desc').textContent = t.aboutDesc;
             document.getElementById('footer-text').textContent = t.footer;

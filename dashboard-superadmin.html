@@ -1,733 +1,773 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <title>Super Admin Dashboard - CityWide Rental</title>
 
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="dashboard.css" />
-    <style>
-      .super-admin-badge {
-        background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
-        padding: 4px 8px;
-        border-radius: 4px;
-        font-size: 10px;
-        font-weight: 700;
-        color: white;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <div class="logo-mini">
-          <img src="logoye(1).png" alt="Logo" class="logo-img" />
-        </div>
-        <div class="logo-full d-none d-md-block">
-          <h5 class="mb-0">
-            CityWide <span style="color: #ff6b6b">SUPER</span>
-          </h5>
-        </div>
-        <button class="sidebar-toggle d-md-none" onclick="toggleSidebar()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-
-      <nav class="sidebar-menu">
-        <a href="#" class="menu-item active" data-page="dashboard">
-          <i class="fas fa-chart-line"></i>
-          <span>Super Dashboard</span>
-        </a>
-        <a href="#" class="menu-item" data-page="system">
-          <i class="fas fa-server"></i>
-          <span>System Management</span>
-        </a>
-        <a href="#" class="menu-item" data-page="admins">
-          <i class="fas fa-shield-alt"></i>
-          <span>Admin Management</span>
-        </a>
-        <a href="#" class="menu-item" data-page="assets">
-          <i class="fas fa-box"></i>
-          <span>Global Assets</span>
-        </a>
-        <a href="#" class="menu-item" data-page="users">
-          <i class="fas fa-users"></i>
-          <span>All Users</span>
-        </a>
-        <a href="#" class="menu-item" data-page="disputes">
-          <i class="fas fa-gavel"></i>
-          <span>Disputes & Claims</span>
-        </a>
-        <a href="#" class="menu-item" data-page="analytics">
-          <i class="fas fa-chart-bar"></i>
-          <span>Advanced Analytics</span>
-        </a>
-        <a href="#" class="menu-item" data-page="profile">
-          <i class="fas fa-user-circle"></i>
-          <span>Profile</span>
-        </a>
-        <a href="#" class="menu-item" data-page="finance">
-          <i class="fas fa-dollar-sign"></i>
-          <span>Finance & Reports</span>
-        </a>
-        <hr class="sidebar-divider" />
-        <a href="#" class="menu-item" data-page="security">
-          <i class="fas fa-lock"></i>
-          <span>Security & Logs</span>
-        </a>
-        <a href="#" class="menu-item" data-page="settings">
-          <i class="fas fa-cog"></i>
-          <span>System Settings</span>
-        </a>
-        <a href="ma.html" class="menu-item">
-          <i class="fas fa-arrow-left"></i>
-          <span>Back to Home</span>
-        </a>
-      </nav>
-    </aside>
-
-    <!-- Main Content Wrapper -->
-    <div class="main-wrapper">
-      <!-- Top Navbar -->
-      <header class="top-navbar">
-        <div class="navbar-left">
-          <button class="sidebar-btn d-md-none" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i>
-          </button>
-          <h4 class="page-title">
-            <span class="super-admin-badge">SUPER ADMIN</span> Master Dashboard
-          </h4>
-        </div>
-
-        <div class="navbar-center">
-          <div class="search-box">
-            <i class="fas fa-search"></i>
-            <input
-              type="text"
-              placeholder="Search anything on platform..."
-              class="search-input"
-            />
-          </div>
-        </div>
-
-        <div class="navbar-right">
-          <div class="lang-selector">
-            <select id="lang-select" class="lang-select">
-              <option value="en" data-i18n="english">English</option>
-              <option value="am" data-i18n="amharic">አማርኛ</option>
-            </select>
-          </div>
-          <div class="theme-toggle">
-            <button
-              id="theme-toggle-btn"
-              class="theme-toggle-btn"
-              type="button"
-              aria-label="Toggle theme"
-            >
-              <i class="fas fa-moon"></i>
-              <span class="theme-label">Theme</span>
-            </button>
-          </div>
-
-          <div class="notification-bell">
-            <button class="notification-btn">
-              <i class="fas fa-bell"></i>
-              <span class="notification-badge">8</span>
-            </button>
-            <div class="notification-dropdown">
-              <div class="notification-item">
-                <i class="fas fa-exclamation-triangle text-danger"></i>
-                <div>
-                  <p>Critical: Unusual activity detected</p>
-                  <small>Just now</small>
-                </div>
-              </div>
-              <div class="notification-item">
-                <i class="fas fa-user-slash text-danger"></i>
-                <div>
-                  <p>Suspicious account flagged</p>
-                  <small>2 minutes ago</small>
-                </div>
-              </div>
-              <div class="notification-item">
-                <i class="fas fa-server text-warning"></i>
-                <div>
-                  <p>Database backup completed</p>
-                  <small>1 hour ago</small>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="user-profile">
-            <button class="profile-btn" data-bs-toggle="dropdown">
-              <img
-                src="https://api.dicebear.com/7.x/avataaars/svg?seed=SuperAdmin"
-                alt="User"
-                class="profile-pic"
-              />
-              <span id="profile-name" class="profile-name">User</span>
-              <i class="fas fa-chevron-down"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end profile-dropdown">
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="fas fa-user-circle"></i> My Profile</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="fas fa-cog"></i> Preferences</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="fas fa-key"></i> Security</a
-                >
-              </li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a
-                  class="dropdown-item"
-                  href="ma.html"
-                  onclick="sessionStorage.clear()"
-                  ><i class="fas fa-sign-out-alt"></i> Logout</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
-
-      <!-- Main Content Area -->
-      <main class="main-content">
-        <!-- KPI Cards Row - Extended -->
-        <section class="kpi-section">
-          <h5 class="section-title">System Overview & Key Metrics</h5>
-          <div class="row g-3 mb-4">
-            <div class="col-12 col-md-6 col-lg-2-4">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Total Platform Revenue</h6>
-                  <span class="kpi-trend up"
-                    ><i class="fas fa-arrow-up"></i> 24.3%</span
-                  >
-                </div>
-                <p class="kpi-value">8,245,750 Br</p>
-                <p class="kpi-subtitle">All time</p>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-2-4">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Total Transactions</h6>
-                  <span class="kpi-trend up"
-                    ><i class="fas fa-arrow-up"></i> 15.8%</span
-                  >
-                </div>
-                <p class="kpi-value">4,528</p>
-                <p class="kpi-subtitle">Completed</p>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-2-4">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Active Users</h6>
-                  <span class="kpi-trend up"
-                    ><i class="fas fa-arrow-up"></i> 32.1%</span
-                  >
-                </div>
-                <p class="kpi-value">3,247</p>
-                <p class="kpi-subtitle">Right now online</p>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-2-4">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Total Assets</h6>
-                  <span class="kpi-trend down"
-                    ><i class="fas fa-arrow-down"></i> 0.3%</span
-                  >
-                </div>
-                <p class="kpi-value">5,624</p>
-                <p class="kpi-subtitle">Platform wide</p>
-              </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-2-4">
-              <div class="kpi-card">
-                <div class="kpi-header">
-                  <h6 class="kpi-label">Support Tickets</h6>
-                  <span class="kpi-trend up"
-                    ><i class="fas fa-arrow-up"></i> 5.2%</span
-                  >
-                </div>
-                <p class="kpi-value">142</p>
-                <p class="kpi-subtitle">Pending review</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Main Split Layout -->
-        <div class="row g-3">
-          <!-- Left/Main Side -->
-          <div class="col-12 col-lg-8">
-            <!-- Platform Growth Chart -->
-            <section class="content-card">
-              <div class="card-header">
-                <h5>Platform Growth Analytics</h5>
-                <div class="chart-controls">
-                  <button class="chart-btn active">Year to Date</button>
-                  <button class="chart-btn">Last 12 Months</button>
-                  <button class="chart-btn">5 Years</button>
-                </div>
-              </div>
-              <div class="chart-placeholder">
-                <div class="chart-bars">
-                  <div class="bar" style="height: 25%"></div>
-                  <div class="bar" style="height: 42%"></div>
-                  <div class="bar" style="height: 38%"></div>
-                  <div class="bar" style="height: 58%"></div>
-                  <div class="bar" style="height: 65%"></div>
-                  <div class="bar" style="height: 75%"></div>
-                  <div class="bar" style="height: 95%"></div>
-                </div>
-                <p class="chart-subtitle">Revenue Growth (in Millions Birr)</p>
-              </div>
-            </section>
-
-            <!-- All Transactions -->
-            <section class="content-card mt-3">
-              <div class="card-header">
-                <h5>System-Wide Transactions</h5>
-                <a href="#" class="view-all">View All</a>
-              </div>
-              <div class="table-responsive">
-                <table class="transaction-table">
-                  <thead>
-                    <tr>
-                      <th>Transaction ID</th>
-                      <th>Type</th>
-                      <th>User</th>
-                      <th>Date</th>
-                      <th>Amount</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>#TXN-20260603-8734</td>
-                      <td>Rental Payment</td>
-                      <td>Abebe K.</td>
-                      <td>June 3, 2026</td>
-                      <td>5,500 Br</td>
-                      <td>
-                        <span class="status-badge completed">Confirmed</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#TXN-20260603-8735</td>
-                      <td>Payout</td>
-                      <td>Owner User</td>
-                      <td>June 3, 2026</td>
-                      <td>45,000 Br</td>
-                      <td>
-                        <span class="status-badge completed">Completed</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#TXN-20260602-8736</td>
-                      <td>Rental Payment</td>
-                      <td>Marta T.</td>
-                      <td>June 2, 2026</td>
-                      <td>3,200 Br</td>
-                      <td>
-                        <span class="status-badge completed">Confirmed</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>#TXN-20260602-8737</td>
-                      <td>Refund</td>
-                      <td>Hirut S.</td>
-                      <td>June 1, 2026</td>
-                      <td>-2,800 Br</td>
-                      <td>
-                        <span class="status-badge pending">Processing</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </div>
-
-          <!-- Right Side -->
-          <div class="col-12 col-lg-4">
-            <!-- Critical Alerts -->
-            <section class="content-card">
-              <div class="card-header">
-                <h5 style="color: #ff6b6b">
-                  <i class="fas fa-exclamation-circle"></i> Critical Alerts
-                </h5>
-              </div>
-              <div class="logs-section">
-                <div class="log-item">
-                  <span class="log-time" style="color: #ff6b6b">🔴</span>
-                  <p class="log-text">Suspicious activity: 3 accounts</p>
-                </div>
-                <div class="log-item">
-                  <span class="log-time" style="color: #ff6b6b">🔴</span>
-                  <p class="log-text">High chargeback rate detected</p>
-                </div>
-                <div class="log-item">
-                  <span class="log-time" style="color: #ffc107">🟡</span>
-                  <p class="log-text">Server load at 78%</p>
-                </div>
-                <div class="log-item">
-                  <span class="log-time" style="color: #ffc107">🟡</span>
-                  <p class="log-text">Database growth: +5GB</p>
-                </div>
-              </div>
-            </section>
-
-            <!-- Admin Management -->
-            <section class="content-card mt-3">
-              <div class="card-header">
-                <h5>Admin Team</h5>
-              </div>
-              <div class="asset-list">
-                <div class="asset-item">
-                  <div class="asset-icon">👤</div>
-                  <div class="asset-info">
-                    <h6>Admin #1 - Revenue</h6>
-                    <p class="asset-count">Online - Last seen now</p>
-                  </div>
-                </div>
-                <div class="asset-item">
-                  <div class="asset-icon">👤</div>
-                  <div class="asset-info">
-                    <h6>Admin #2 - Users</h6>
-                    <p class="asset-count">Online - Last seen 5m ago</p>
-                  </div>
-                </div>
-                <div class="asset-item">
-                  <div class="asset-icon">👤</div>
-                  <div class="asset-info">
-                    <h6>Admin #3 - Assets</h6>
-                    <p class="asset-count">Offline - Last seen 2h ago</p>
-                  </div>
-                </div>
-              </div>
-              <button class="action-btn" style="width: 100%; margin-top: 15px">
-                <i class="fas fa-plus"></i> Add New Admin
-              </button>
-            </section>
-
-            <!-- System Health -->
-            <section class="content-card mt-3">
-              <div class="card-header">
-                <h5>System Infrastructure</h5>
-              </div>
-              <div class="health-section">
-                <div class="health-item">
-                  <div class="health-label">
-                    <span>Primary Server</span>
-                    <span class="health-status active"
-                      ><i class="fas fa-circle"></i> Healthy</span
-                    >
-                  </div>
-                </div>
-                <div class="health-item">
-                  <div class="health-label">
-                    <span>Database</span>
-                    <span class="health-value">95% Capacity</span>
-                  </div>
-                  <div class="health-bar">
-                    <div
-                      class="health-progress"
-                      style="
-                        width: 95%;
-                        background: linear-gradient(90deg, #ffc107, #ff6b6b);
-                      "
-                    ></div>
-                  </div>
-                </div>
-                <div class="health-item">
-                  <div class="health-label">
-                    <span>API Servers</span>
-                    <span class="health-value">4/4 Active</span>
-                  </div>
-                  <div class="health-bar">
-                    <div class="health-progress" style="width: 100%"></div>
-                  </div>
-                </div>
-                <div class="health-item">
-                  <div class="health-label">
-                    <span>Backup Status</span>
-                    <span class="health-status active"
-                      ><i class="fas fa-circle"></i> Complete</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
-
-        <!-- Page Sections -->
-        <section id="section-profile" class="page-section content-card hidden">
-          <div class="card-header">
-            <h5 data-i18n="profile">Profile</h5>
-          </div>
-          <div class="profile-content">
-            <p data-i18n="profileDescription">
-              Manage your account information and preferences.
-            </p>
-            <form style="margin-top: 20px">
-              <div class="form-group mb-3">
-                <label class="form-label" data-i18n="myProfile"
-                  >My Profile</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  placeholder="Full Name"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-              </div>
-              <div class="form-group mb-3">
-                <label class="form-label">Email</label>
-                <input
-                  type="email"
-                  class="form-control"
-                  placeholder="email@example.com"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-              </div>
-              <button
-                type="button"
-                class="btn"
-                style="
-                  background-color: var(--gold-primary);
-                  color: #0b0b0b;
-                  border: none;
-                  padding: 8px 16px;
-                  border-radius: 4px;
-                  font-weight: 600;
-                "
-              >
-                Update Profile
-              </button>
-            </form>
-          </div>
-        </section>
-
-        <section id="section-settings" class="page-section content-card hidden">
-          <div class="card-header">
-            <h5 data-i18n="settings">Settings</h5>
-          </div>
-          <div class="settings-content">
-            <p data-i18n="settingsDescription">
-              Configure your account settings and security options.
-            </p>
-            <div style="margin-top: 20px">
-              <h6 style="color: var(--text-light)">Security Settings</h6>
-              <div class="mb-3">
-                <label class="form-label">Change Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  placeholder="Current Password"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-                <input
-                  type="password"
-                  class="form-control mt-2"
-                  placeholder="New Password"
-                  style="
-                    background: rgba(255, 255, 255, 0.05);
-                    color: var(--text-light);
-                    border: 1px solid var(--border-gold);
-                  "
-                />
-                <button
-                  type="button"
-                  class="btn mt-3"
-                  style="
-                    background-color: var(--gold-primary);
-                    color: #0b0b0b;
-                    border: none;
-                    padding: 8px 16px;
-                    border-radius: 4px;
-                    font-weight: 600;
-                  "
-                >
-                  Update Password
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-      <!-- Analytics Quick View -->
-      <section class="analytics-section container py-4">
-        <h5 class="section-title">Quick Analytics</h5>
-        <div class="row g-3">
-          <div class="col-12 col-md-6">
-            <div class="content-card p-3">
-              <h6>Revenue (Last 6 months)</h6>
-              <canvas id="chart-revenue" height="160"></canvas>
-            </div>
-          </div>
-          <div class="col-12 col-md-6">
-            <div class="content-card p-3">
-              <h6>User Growth</h6>
-              <canvas id="chart-users" height="160"></canvas>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="auth.js"></script>
-    <script src="i18n.js"></script>
-    <script>
-      (function () {
-        const name =
-          sessionStorage.getItem("currentUserName") ||
-          sessionStorage.getItem("currentUser") ||
-          "Super Admin";
-        const el = document.getElementById("profile-name");
-        if (el) el.textContent = name;
-      })();
-    </script>
-
-    <script src="dashboard-nav.js"></script>
-    <script>
-      // Language selector
-      const langSelect = document.getElementById("lang-select");
-      if (langSelect) {
-        langSelect.value = window.i18n.getLang();
-        langSelect.addEventListener("change", function () {
-          window.i18n.setLang(this.value);
-          const titleEl = document.querySelector(".page-title");
-          if (titleEl && window.i18n) {
-            const keyMap = {
-              dashboard: "dashboard",
-              system: "systemManagement",
-              admins: "usersManagement",
-              assets: "assetManagement",
-              users: "usersManagement",
-              disputes: "disputes",
-              analytics: "analytics",
-              finance: "financeReports",
-              profile: "profile",
-              settings: "settings",
-            };
-            const activeItem = document.querySelector(
-              ".sidebar .menu-item.active",
-            );
-            if (activeItem) {
-              const page = activeItem.dataset.page || "dashboard";
-              const key = keyMap[page] || page;
-              titleEl.textContent = window.i18n.t(key);
-            }
-          }
-        });
-      }
-    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-      // Sample Chart.js charts
-      (function () {
-        const ctx1 = document.getElementById("chart-revenue");
-        if (ctx1) {
-          new Chart(ctx1.getContext("2d"), {
-            type: "line",
-            data: {
-              labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-              datasets: [
-                {
-                  label: "Revenue (Br)",
-                  data: [1200000, 1400000, 1800000, 1600000, 2000000, 2100000],
-                  borderColor: "#ff6b6b",
-                  backgroundColor: "rgba(255,107,107,0.12)",
-                },
-              ],
-            },
-            options: { responsive: true },
-          });
+
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-sidebar: #111111;
+            --bg-card: #1a1a1a;
+            --gold-primary: #FFB347;
+            --gold-secondary: #FF9E1A;
+            --text-light: #ffffff;
+            --text-muted: #a0a0a0;
+            --border-gold: rgba(255, 179, 71, 0.15);
+            --success: #4caf50;
+            --warning: #ffc107;
+            --danger: #ff6b6b;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg-dark); color: var(--text-light); overflow-x: hidden; }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed; left: 0; top: 0; width: 280px; height: 100vh;
+            background: var(--bg-sidebar); border-right: 1px solid var(--border-gold);
+            z-index: 1000; transition: all 0.3s ease; transform: translateX(0); overflow-y: auto;
+        }
+        .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border-gold); display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold-primary); object-fit: cover; }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 800; color: white; }
+        .logo-text span { color: var(--gold-primary); }
+        .nav-link-custom { display: flex; align-items: center; gap: 15px; padding: 12px 20px; color: var(--text-muted); text-decoration: none; margin: 4px 12px; border-radius: 12px; transition: 0.3s; cursor: pointer; background: transparent; width: calc(100% - 24px); border: none; font-size: 0.9rem; }
+        .nav-link-custom i { width: 22px; font-size: 1.1rem; }
+        .nav-link-custom:hover, .nav-link-custom.active { background: linear-gradient(135deg, rgba(255, 179, 71, 0.15), transparent); color: var(--gold-primary); }
+        .sidebar-divider { margin: 15px 20px; border-color: var(--border-gold); }
+        .sidebar-footer { padding: 20px; border-top: 1px solid var(--border-gold); margin-top: auto; background: var(--bg-sidebar); }
+
+        /* Main Content */
+        .main-wrapper { margin-left: 280px; transition: all 0.3s ease; min-height: 100vh; }
+        .top-navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 25px; background: rgba(17, 17, 17, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-gold); position: sticky; top: 0; z-index: 999; flex-wrap: wrap; gap: 15px; }
+        .navbar-left { display: flex; align-items: center; gap: 15px; }
+        .sidebar-toggle-btn { display: none; background: transparent; border: none; color: var(--gold-primary); font-size: 1.3rem; cursor: pointer; }
+        .page-title { font-size: 1.2rem; font-weight: 600; margin: 0; }
+        .super-badge { background: linear-gradient(135deg, #ff6b6b, #ee5a6f); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.65rem; margin-left: 10px; }
+        .search-box { display: flex; align-items: center; background: rgba(255,255,255,0.08); border-radius: 30px; padding: 8px 16px; gap: 10px; }
+        .search-input { background: transparent; border: none; color: white; outline: none; width: 250px; }
+        .search-input::placeholder { color: var(--text-muted); }
+        .profile-pic { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--gold-primary); cursor: pointer; }
+        .datetime { display: flex; gap: 15px; font-size: 0.75rem; color: var(--text-muted); }
+
+        @media (max-width: 992px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.active { transform: translateX(0); }
+            .main-wrapper { margin-left: 0; }
+            .sidebar-toggle-btn { display: block; }
+        }
+        @media (max-width: 768px) {
+            .top-navbar { flex-direction: column; }
+            .search-box { width: 100%; }
+            .search-input { width: 100%; }
+            .datetime { display: none; }
         }
 
-        const ctx2 = document.getElementById("chart-users");
-        if (ctx2) {
-          new Chart(ctx2.getContext("2d"), {
-            type: "bar",
-            data: {
-              labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
-              datasets: [
-                {
-                  label: "New Users",
-                  data: [120, 190, 300, 250, 400, 460],
-                  backgroundColor: "#4f46e5",
-                },
-              ],
-            },
-            options: { responsive: true },
-          });
+        /* Content Styles */
+        .main-content { padding: 25px; }
+        
+        /* KPI Cards */
+        .kpi-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border-gold);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
         }
-      })();
-      function toggleSidebar() {
+        .kpi-card:hover { transform: translateY(-5px); border-color: var(--gold-primary); }
+        .kpi-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(to bottom, var(--gold-primary), var(--gold-secondary)); }
+        .kpi-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .kpi-label { font-size: 0.7rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin: 0; }
+        .kpi-trend { font-size: 0.65rem; padding: 2px 8px; border-radius: 20px; font-weight: 600; }
+        .kpi-trend.up { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
+        .kpi-trend.down { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+        .kpi-value { font-size: 1.8rem; font-weight: 700; margin: 10px 0; line-height: 1.2; color: var(--text-light); }
+        .kpi-subtitle { font-size: 0.65rem; color: var(--text-muted); margin: 0; }
+        
+        /* Content Cards */
+        .content-card { background: var(--bg-card); border-radius: 16px; padding: 20px; border: 1px solid var(--border-gold); margin-bottom: 20px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px; }
+        .card-header h5 { margin: 0; font-size: 1rem; font-weight: 600; color: var(--text-light); }
+        .card-header h5 i { color: var(--gold-primary); margin-right: 8px; }
+        
+        /* Chart */
+        .chart-placeholder { padding: 20px 0; }
+        .chart-bars { display: flex; align-items: flex-end; gap: 15px; height: 200px; margin: 20px 0; justify-content: center; }
+        .bar { width: 60px; background: linear-gradient(180deg, var(--gold-primary), var(--gold-secondary)); border-radius: 8px 8px 0 0; transition: 0.3s; }
+        .bar:hover { opacity: 0.8; transform: scaleX(1.05); }
+        .chart-subtitle { text-align: center; color: var(--text-muted); font-size: 0.75rem; margin-top: 15px; }
+        
+        /* Chart Controls */
+        .chart-controls { display: flex; gap: 10px; flex-wrap: wrap; }
+        .chart-btn { background: transparent; border: 1px solid var(--border-gold); color: var(--text-muted); padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; transition: 0.3s; cursor: pointer; }
+        .chart-btn:hover, .chart-btn.active { background: var(--gold-primary); border-color: var(--gold-primary); color: #0a0a0a; }
+        
+        /* Alert Items */
+        .alert-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+        .alert-item:last-child { border-bottom: none; }
+        .alert-icon { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .alert-icon.critical { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+        .alert-icon.warning { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .alert-text { flex: 1; font-size: 0.8rem; }
+        .alert-text small { font-size: 0.7rem; color: var(--text-muted); }
+        .alert-time { font-size: 0.65rem; color: var(--text-muted); }
+        
+        /* Tables */
+        .transaction-table { width: 100%; }
+        .transaction-table th, .transaction-table td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); text-align: left; }
+        .transaction-table th { font-size: 0.65rem; font-weight: 600; color: var(--gold-primary); text-transform: uppercase; letter-spacing: 1px; }
+        .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.65rem; font-weight: 600; }
+        .status-badge.completed { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
+        .status-badge.pending { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .status-badge.active { background: rgba(255, 179, 71, 0.2); color: #FFB347; }
+        
+        /* Buttons */
+        .btn-gold { background: var(--gold-primary); color: #0a0a0a; border: none; padding: 8px 20px; border-radius: 30px; font-weight: 600; transition: 0.3s; }
+        .btn-gold:hover { background: var(--gold-secondary); transform: translateY(-2px); }
+        .btn-outline-gold { background: transparent; border: 1px solid var(--gold-primary); color: var(--gold-primary); padding: 6px 15px; border-radius: 30px; font-weight: 500; transition: 0.3s; }
+        .btn-outline-gold:hover { background: var(--gold-primary); color: #0a0a0a; }
+        
+        /* Form Controls */
+        .form-control, .form-select { background: #2a2a2a; border: 1px solid #444; color: white; border-radius: 10px; padding: 10px 15px; }
+        .form-control:focus, .form-select:focus { border-color: var(--gold-primary); box-shadow: none; outline: none; }
+        .form-label { font-size: 0.7rem; font-weight: 600; color: var(--gold-primary); margin-bottom: 5px; }
+        .form-check-input:checked { background-color: var(--gold-primary); border-color: var(--gold-primary); }
+        
+        @media (max-width: 768px) {
+            .main-content { padding: 15px; }
+            .kpi-value { font-size: 1.3rem; }
+            .bar { width: 35px; }
+            .transaction-table th, .transaction-table td { padding: 8px; font-size: 0.65rem; }
+        }
+        
+        footer { text-align: center; padding: 20px; border-top: 1px solid var(--border-gold); color: var(--text-muted); font-size: 0.7rem; }
+        .hidden { display: none !important; }
+        
+        /* Progress Bar */
+        .progress { background: #2a2a2a; border-radius: 10px; overflow: hidden; }
+        .progress-bar { background: var(--gold-primary); }
+        
+        /* Terminal Box */
+        .terminal-box { background: #0a0a0a; border-radius: 12px; padding: 20px; font-family: 'Courier New', monospace; font-size: 0.7rem; border: 1px solid var(--border-gold); height: 400px; overflow-y: auto; }
+
+        /* ========== LIGHT MODE VARIABLES ========== */
+        body.light-mode {
+            --bg-dark: #f8fafc;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --text-light: #1e293b;
+            --text-muted: #64748b;
+            --border-gold: #e2e8f0;
+        }
+
+        body.light-mode .top-navbar {
+            background: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        body.light-mode .sidebar {
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-gold);
+        }
+
+        body.light-mode .sidebar-header {
+            border-bottom: 1px solid var(--border-gold);
+        }
+
+        body.light-mode .logo-text {
+            color: #1e293b;
+        }
+
+        body.light-mode .search-box {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        body.light-mode .search-input {
+            color: #1e293b;
+        }
+
+        body.light-mode .search-input::placeholder {
+            color: #64748b;
+        }
+
+        body.light-mode .terminal-box {
+            background: #1e293b;
+            color: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        /* ========== UNIFIED LANGUAGE & THEME CONTROLS ========== */
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-left: auto;
+            margin-right: 15px;
+        }
+
+        .lang-select {
+            padding: 5px 10px;
+            border-radius: 30px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .lang-select {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .lang-select option {
+            background: var(--bg-sidebar);
+            color: var(--text-light);
+        }
+
+        .theme-toggle-btn {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 5px 12px;
+            border-radius: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1e293b;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-toggle-btn:hover, .lang-select:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img src="logoye(1).png" alt="Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/40'">
+        <span class="logo-text">CityWide <span>SUPER</span></span>
+    </div>
+    <nav class="nav flex-column">
+        <button class="nav-link-custom active" data-bs-toggle="tab" data-bs-target="#dashboard"><i class="fas fa-chart-line"></i> Master Dashboard</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#admins"><i class="fas fa-shield-alt"></i> Admin Management</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#analytics"><i class="fas fa-chart-bar"></i> System Analytics</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#settings"><i class="fas fa-cog"></i> Settings</button>
+        <hr class="sidebar-divider" />
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#security"><i class="fas fa-lock"></i> Security Logs</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#finance"><i class="fas fa-dollar-sign"></i> Finance Reports</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#users"><i class="fas fa-users"></i> All Users</button>
+        <button class="nav-link-custom" data-bs-toggle="tab" data-bs-target="#assets"><i class="fas fa-box"></i> Global Assets</button>
+    </nav>
+    <div class="sidebar-footer">
+        <button class="nav-link-custom" onclick="sessionStorage.clear(); window.location.href='ma.html'"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+</aside>
+
+<div class="main-wrapper">
+    <header class="top-navbar">
+        <div class="navbar-left">
+            <button class="sidebar-toggle-btn" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <h4 class="page-title" id="superadmin-title-text">CityWide <span style="color: #FFB347">SUPER</span> <span class="super-badge">ROOT ACCESS</span></h4>
+        </div>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search platform..." class="search-input" id="search-input-field">
+        </div>
+        <div class="datetime">
+            <span><i class="fas fa-temperature-low"></i> 19°C</span>
+            <span><i class="far fa-clock"></i> <span id="currentTime">--:-- --</span></span>
+            <span><i class="far fa-calendar-alt"></i> <span id="currentDate">--/--/----</span></span>
+        </div>
+        <div class="nav-controls">
+            <select id="lang-select" class="lang-select">
+                <option value="en">English</option>
+                <option value="am">አማርኛ</option>
+            </select>
+            <div class="theme-toggle">
+                <button id="theme-toggle-btn" class="theme-toggle-btn" type="button">
+                    <i class="fas fa-moon"></i>
+                    <span>Theme</span>
+                </button>
+            </div>
+        </div>
+        <div class="user-profile">
+            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=SuperAdmin" alt="Profile" class="profile-pic">
+            <span id="user-name">Super Admin</span>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="tab-content">
+            <!-- ========== MASTER DASHBOARD TAB ========== -->
+            <div class="tab-pane fade show active" id="dashboard">
+                <h5 class="mb-3" style="color: var(--gold-primary); font-size: 0.75rem; letter-spacing: 2px;">SYSTEM OVERVIEW &amp; KEY METRICS</h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-md-6 col-lg-2-4 col-xl-2">
+                        <div class="kpi-card">
+                            <div class="kpi-header"><h6 class="kpi-label">TOTAL PLATFORM REVENUE</h6><span class="kpi-trend up"><i class="fas fa-arrow-up"></i> 24.3%</span></div>
+                            <p class="kpi-value">8,245,750 Br</p>
+                            <p class="kpi-subtitle">All time</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2-4 col-xl-2">
+                        <div class="kpi-card">
+                            <div class="kpi-header"><h6 class="kpi-label">TOTAL TRANSACTIONS</h6><span class="kpi-trend up"><i class="fas fa-arrow-up"></i> 15.8%</span></div>
+                            <p class="kpi-value">4,528</p>
+                            <p class="kpi-subtitle">Completed</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2-4 col-xl-2">
+                        <div class="kpi-card">
+                            <div class="kpi-header"><h6 class="kpi-label">ACTIVE USERS</h6><span class="kpi-trend up"><i class="fas fa-arrow-up"></i> 32.1%</span></div>
+                            <p class="kpi-value">3,247</p>
+                            <p class="kpi-subtitle">Right now online</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2-4 col-xl-2">
+                        <div class="kpi-card">
+                            <div class="kpi-header"><h6 class="kpi-label">TOTAL ASSETS</h6><span class="kpi-trend down"><i class="fas fa-arrow-down"></i> 0.3%</span></div>
+                            <p class="kpi-value">5,624</p>
+                            <p class="kpi-subtitle">Platform wide</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-2-4 col-xl-2">
+                        <div class="kpi-card">
+                            <div class="kpi-header"><h6 class="kpi-label">SUPPORT TICKETS</h6><span class="kpi-trend up"><i class="fas fa-arrow-up"></i> 5.2%</span></div>
+                            <p class="kpi-value">142</p>
+                            <p class="kpi-subtitle">Pending review</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    <div class="col-12 col-lg-8">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-chart-line"></i> Platform Growth Analytics</h5>
+                                <div class="chart-controls">
+                                    <button class="chart-btn active">Year to Date</button>
+                                    <button class="chart-btn">Last 12 Months</button>
+                                    <button class="chart-btn">5 Years</button>
+                                </div>
+                            </div>
+                            <div class="chart-placeholder">
+                                <div class="chart-bars">
+                                    <div class="bar" style="height: 25%"></div>
+                                    <div class="bar" style="height: 42%"></div>
+                                    <div class="bar" style="height: 38%"></div>
+                                    <div class="bar" style="height: 58%"></div>
+                                    <div class="bar" style="height: 65%"></div>
+                                    <div class="bar" style="height: 75%"></div>
+                                    <div class="bar" style="height: 95%"></div>
+                                </div>
+                                <p class="chart-subtitle">Revenue Growth (in Millions Birr)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h5 style="color: var(--gold-primary);"><i class="fas fa-exclamation-triangle"></i> Critical Alerts</h5>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-icon critical"><i class="fas fa-user-secret"></i></div>
+                                <div class="alert-text"><strong>Suspicious activity detected</strong><br><small>3 accounts flagged</small></div>
+                                <div class="alert-time">Just now</div>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-icon critical"><i class="fas fa-credit-card"></i></div>
+                                <div class="alert-text"><strong>High chargeback rate</strong><br><small>12.4% above threshold</small></div>
+                                <div class="alert-time">2 min ago</div>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-icon warning"><i class="fas fa-server"></i></div>
+                                <div class="alert-text"><strong>Server load at 78%</strong><br><small>Performance degradation risk</small></div>
+                                <div class="alert-time">15 min ago</div>
+                            </div>
+                            <div class="alert-item">
+                                <div class="alert-icon warning"><i class="fas fa-database"></i></div>
+                                <div class="alert-text"><strong>Database growth: +5GB</strong><br><small>Storage optimization needed</small></div>
+                                <div class="alert-time">1 hour ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-card mt-3">
+                    <div class="card-header">
+                        <h5><i class="fas fa-list"></i> Recent System Transactions</h5>
+                        <a href="#" style="color: var(--gold-primary); font-size: 0.7rem;">View All →</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="transaction-table">
+                            <thead><tr><th>Transaction ID</th><th>Type</th><th>User</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+                            <tbody>
+                                <tr><td>#TXN-20260603-8734</td><td>Rental Payment</td><td>Abebe K.</td><td>June 3, 2026</td><td>5,500 Br</td><td><span class="status-badge completed">Confirmed</span></td></tr>
+                                <tr><td>#TXN-20260603-8735</td><td>Payout</td><td>Owner User</td><td>June 3, 2026</td><td>45,000 Br</td><td><span class="status-badge completed">Completed</span></td></tr>
+                                <tr><td>#TXN-20260602-8736</td><td>Rental Payment</td><td>Marta T.</td><td>June 2, 2026</td><td>3,200 Br</td><td><span class="status-badge completed">Confirmed</span></td></tr>
+                                <tr><td>#TXN-20260602-8737</td><td>Refund</td><td>Hirut S.</td><td>June 1, 2026</td><td>-2,800 Br</td><td><span class="status-badge pending">Processing</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== ADMIN MANAGEMENT TAB ========== -->
+            <div class="tab-pane fade" id="admins">
+                <div class="content-card">
+                    <div class="card-header"><h5><i class="fas fa-shield-alt"></i> Admin Team Management</h5><button class="btn-gold" data-bs-toggle="modal" data-bs-target="#addAdminModal"><i class="fas fa-plus"></i> Add Admin</button></div>
+                    <div class="table-responsive">
+                        <table class="transaction-table">
+                            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Last Active</th><th>Actions</th></tr></thead>
+                            <tbody>
+                                <tr><td>Admin #1 - Revenue</td><td>revenue@citywide.com</td><td>Revenue Manager</td><td><span class="status-badge active">Active</span></td><td>Now</td><td><i class="fas fa-edit" style="cursor:pointer; color: var(--gold-primary); margin-right:10px"></i><i class="fas fa-trash" style="cursor:pointer; color: var(--danger)"></i></td></tr>
+                                <tr><td>Admin #2 - Users</td><td>users@citywide.com</td><td>User Manager</td><td><span class="status-badge active">Active</span></td><td>5 min ago</td><td><i class="fas fa-edit" style="cursor:pointer; color: var(--gold-primary); margin-right:10px"></i><i class="fas fa-trash" style="cursor:pointer; color: var(--danger)"></i></td></tr>
+                                <tr><td>Admin #3 - Assets</td><td>assets@citywide.com</td><td>Asset Manager</td><td><span class="status-badge pending">Offline</span></td><td>2 hours ago</td><td><i class="fas fa-edit" style="cursor:pointer; color: var(--gold-primary); margin-right:10px"></i><i class="fas fa-trash" style="cursor:pointer; color: var(--danger)"></i></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== SYSTEM ANALYTICS TAB ========== -->
+            <div class="tab-pane fade" id="analytics">
+                <div class="row g-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="content-card">
+                            <div class="card-header"><h5><i class="fas fa-tachometer-alt"></i> Server Performance</h5></div>
+                            <div class="mb-3"><div class="d-flex justify-content-between"><span>CPU Usage</span><span>28%</span></div><div class="progress" style="height:6px;"><div class="progress-bar" style="width:28%"></div></div></div>
+                            <div class="mb-3"><div class="d-flex justify-content-between"><span>RAM Usage</span><span>42% (6.7GB / 16GB)</span></div><div class="progress" style="height:6px;"><div class="progress-bar" style="width:42%"></div></div></div>
+                            <div class="mb-3"><div class="d-flex justify-content-between"><span>Storage</span><span>65% (845GB / 1.3TB)</span></div><div class="progress" style="height:6px;"><div class="progress-bar" style="width:65%"></div></div></div>
+                            <div class="mb-3"><div class="d-flex justify-content-between"><span>API Response</span><span>124ms</span></div><div class="progress" style="height:6px;"><div class="progress-bar" style="width:88%"></div></div></div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="content-card">
+                            <div class="card-header"><h5><i class="fas fa-chart-line"></i> Revenue Trend</h5></div>
+                            <canvas id="revenueTrendChart" style="height: 200px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== SETTINGS TAB ========== -->
+            <div class="tab-pane fade" id="settings">
+                <div class="row g-3">
+                    <div class="col-12 col-lg-6">
+                        <div class="content-card">
+                            <div class="card-header"><h5><i class="fas fa-sliders-h"></i> Platform Settings</h5></div>
+                            <div class="mb-3"><label class="form-label">Global Commission (%)</label><input type="number" class="form-control" value="10"></div>
+                            <div class="mb-3"><label class="form-label">Security Deposit (%)</label><input type="number" class="form-control" value="20"></div>
+                            <div class="mb-3"><label class="form-label">Max Rental Days</label><input type="number" class="form-control" value="30"></div>
+                            <button class="btn-gold w-100">Save Settings</button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                        <div class="content-card">
+                            <div class="card-header"><h5><i class="fas fa-toggle-on"></i> System Controls</h5></div>
+                            <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">Registration Open</label></div>
+                            <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox"><label class="form-check-label">Maintenance Mode</label></div>
+                            <div class="form-check form-switch mb-3"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">Email Notifications</label></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== SECURITY LOGS TAB ========== -->
+            <div class="tab-pane fade" id="security">
+                <div class="content-card">
+                    <div class="card-header"><h5><i class="fas fa-terminal"></i> Security Event Logs</h5></div>
+                    <div class="terminal-box">
+                        <div style="color: #4caf50;">[2026-06-05 08:00:00] ✓ System initialized. Super Admin session started.</div>
+                        <div style="color: #a0a0a0;">[2026-06-05 08:15:23] 🔐 SSH authentication key verified for root connection.</div>
+                        <div style="color: #ffc107;">[2026-06-05 08:32:47] ⚠ Suspicious login attempt from IP 45.120.31.2</div>
+                        <div style="color: #ff6b6b;">[2026-06-05 08:32:48] 🔴 Multiple password retries failed. IP blocked for 24h.</div>
+                        <div style="color: #4caf50;">[2026-06-05 09:00:00] ✓ Daily backup completed: database_mirror.sql</div>
+                        <div style="color: #a0a0a0;">[2026-06-05 09:15:30] 📊 Analytics report generated.</div>
+                        <div style="color: #ffc107;">[2026-06-05 09:45:12] ⚠ High API request volume detected (12,847 req/min)</div>
+                        <div style="color: #4caf50;">[2026-06-05 10:15:00] ✓ New admin account created: revenue@citywide.com</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== FINANCE REPORTS TAB ========== -->
+            <div class="tab-pane fade" id="finance">
+                <div class="content-card">
+                    <div class="card-header"><h5><i class="fas fa-dollar-sign"></i> Finance Reports</h5></div>
+                    <div class="table-responsive">
+                        <table class="transaction-table">
+                            <thead><tr><th>Month</th><th>Revenue</th><th>Expenses</th><th>Profit</th><th>Growth</th></tr></thead>
+                            <tbody>
+                                <tr><td>January 2026</td><td>1,200,000 Br</td><td>480,000 Br</td><td>720,000 Br</td><td class="text-success">↑ 12%</td></tr>
+                                <tr><td>February 2026</td><td class="text-success">1,450,000 Br</td><td class="text-danger">520,000 Br</td><td class="text-success">930,000 Br</td><td class="text-success">↑ 18%</td></tr>
+                                <tr><td>March 2026</td><td class="text-success">1,800,000 Br</td><td class="text-danger">600,000 Br</td><td class="text-success">1,200,000 Br</td><td class="text-success">↑ 24%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== ALL USERS TAB ========== -->
+            <div class="tab-pane fade" id="users">
+                <div class="content-card">
+                    <div class="card-header"><h5><i class="fas fa-users"></i> All Platform Users</h5><input type="text" class="form-control" placeholder="Search users..." style="width: 200px;"></div>
+                    <div class="table-responsive">
+                        <table class="transaction-table">
+                            <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Joined</th></tr></thead>
+                            <tbody>
+                                <tr><td>Abebe Kebede</td><td>abebe@example.com</td><td>Client</td><td><span class="status-badge active">Active</span></td><td>Jan 2025</td></tr>
+                                <tr><td>Marta Tesfaye</td><td>marta@example.com</td><td>Lessor</td><td><span class="status-badge active">Active</span></td><td>Feb 2025</td></tr>
+                                <tr><td>Hirut Alemu</td><td>hirut@example.com</td><td>Lessee</td><td><span class="status-badge pending">Suspended</span></td><td>Mar 2025</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ========== GLOBAL ASSETS TAB ========== -->
+            <div class="tab-pane fade" id="assets">
+                <div class="content-card">
+                    <div class="card-header"><h5><i class="fas fa-box"></i> Global Assets</h5><button class="btn-gold"><i class="fas fa-plus"></i> Add Asset</button></div>
+                    <div class="table-responsive">
+                        <table class="transaction-table">
+                            <thead><tr><th>Asset Name</th><th>Type</th><th>Owner</th><th>Price/Day</th><th>Status</th></tr></thead>
+                            <tbody>
+                                <tr><td>Canon Cinema Kit</td><td>Camera</td><td>John D.</td><td>500 Br</td><td><span class="status-badge active">Available</span></td></tr>
+                                <tr><td>Tesla Model S</td><td>Vehicle</td><td>Michael S.</td><td>3,000 Br</td><td><span class="status-badge pending">Rented</span></td></tr>
+                                <tr><td>NVIDIA H100</td><td>Computing</td><td>Tech Corp</td><td>2,000 Br</td><td><span class="status-badge active">Available</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer><p>© 2026 CityWide Rental Software Engineering Consortium | Built with ❤️ by our Team | All Rights Reserved</p></footer>
+</div>
+
+<!-- Add Admin Modal -->
+<div class="modal fade" id="addAdminModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: var(--bg-card); border: 1px solid var(--border-gold);">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title">Add New Admin</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3"><label class="form-label">Full Name</label><input type="text" class="form-control"></div>
+                    <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control"></div>
+                    <div class="mb-3"><label class="form-label">Role</label><select class="form-select"><option>Revenue Manager</option><option>User Manager</option><option>Asset Manager</option></select></div>
+                    <button type="submit" class="btn-gold w-100">Add Admin</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Update time and date
+    function updateDateTime() {
+        const now = new Date();
+        document.getElementById('currentTime').textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+        document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: 'numeric' });
+    }
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+
+    document.getElementById("user-name").textContent = sessionStorage.getItem("currentUserName") || sessionStorage.getItem("currentUser") || "Super Admin";
+    
+    function toggleSidebar() { document.getElementById("sidebar").classList.toggle("active"); }
+    
+    document.addEventListener("click", function(e) {
         const sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("active");
-      }
-
-      document
-        .querySelector(".notification-btn")
-        .addEventListener("click", function () {
-          this.parentElement
-            .querySelector(".notification-dropdown")
-            .classList.toggle("show");
-        });
-
-      document.addEventListener("click", function (event) {
-        if (!event.target.closest(".notification-bell")) {
-          document
-            .querySelector(".notification-dropdown")
-            ?.classList.remove("show");
+        const toggleBtn = document.querySelector(".sidebar-toggle-btn");
+        if (window.innerWidth < 992 && sidebar && toggleBtn && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+            sidebar.classList.remove("active");
         }
-      });
-    </script>
-    <script src="theme.js"></script>
-  </body>
+    });
+    
+    document.querySelectorAll(".nav-link-custom").forEach(btn => {
+        btn.addEventListener("click", function() {
+            document.querySelectorAll(".nav-link-custom").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+        });
+    });
+    
+    // ========== TRANSLATION SYSTEM ==========
+    const superTranslations = {
+        en: {
+            searchPlaceholder: "Search platform...",
+            tabDashboard: "<i class='fas fa-chart-line'></i> Master Dashboard",
+            tabAdmins: "<i class='fas fa-shield-alt'></i> Admin Management",
+            tabAnalytics: "<i class='fas fa-chart-bar'></i> System Analytics",
+            tabSettings: "<i class='fas fa-cog'></i> Settings",
+            tabSecurity: "<i class='fas fa-lock'></i> Security Logs",
+            tabFinance: "<i class='fas fa-dollar-sign'></i> Finance Reports",
+            tabUsers: "<i class='fas fa-users'></i> All Users",
+            tabAssets: "<i class='fas fa-box'></i> Global Assets",
+            sidebarLogout: "<i class='fas fa-sign-out-alt'></i> Logout",
+            kpiRevenue: "TOTAL PLATFORM REVENUE",
+            kpiTransactions: "TOTAL TRANSACTIONS",
+            kpiActiveUsers: "ACTIVE USERS",
+            kpiAssetsVal: "TOTAL ASSETS",
+            kpiSupportTickets: "SUPPORT TICKETS",
+            chartTitle: "Platform Growth Analytics",
+            footerText: "© 2026 CityWide Rental Software Engineering Consortium | All Rights Reserved"
+        },
+        am: {
+            searchPlaceholder: "መድረኩን ፈልግ...",
+            tabDashboard: "<i class='fas fa-chart-line'></i> ዋና መቆጣጠሪያ",
+            tabAdmins: "<i class='fas fa-shield-alt'></i> የአስተዳዳሪ ሥራ",
+            tabAnalytics: "<i class='fas fa-chart-bar'></i> የስርዓት ትንተና",
+            tabSettings: "<i class='fas fa-cog'></i> ቅንብሮች",
+            tabSecurity: "<i class='fas fa-lock'></i> የደህንነት ምዝግብ",
+            tabFinance: "<i class='fas fa-dollar-sign'></i> የፋይናንስ ሪፖርቶች",
+            tabUsers: "<i class='fas fa-users'></i> ሁሉም ተጠቃሚዎች",
+            tabAssets: "<i class='fas fa-box'></i> አጠቃላይ ንብረቶች",
+            sidebarLogout: "<i class='fas fa-sign-out-alt'></i> ውጣ",
+            kpiRevenue: "ጠቅላላ የመድረክ ገቢ",
+            kpiTransactions: "ጠቅላላ ግብይቶች",
+            kpiActiveUsers: "ንቁ ተጠቃሚዎች",
+            kpiAssetsVal: "ጠቅላላ ንብረቶች",
+            kpiSupportTickets: "የድጋፍ ጥያቄዎች",
+            chartTitle: "የመድረክ እድገት ትንተና",
+            footerText: "© 2026 ሲቲዋይድ ረንታል ሶፍትዌር ምህንድስና ቡድን | ሁሉም መብቶች ተጠብቀዋል"
+        }
+    };
+
+    let superLang = localStorage.getItem('language') || 'en';
+
+    function translateSuperDashboard(lang) {
+        superLang = lang;
+        localStorage.setItem('language', lang);
+        const t = superTranslations[lang];
+        if (!t) return;
+
+        // Search Input
+        const searchInput = document.getElementById('search-input-field');
+        if (searchInput) searchInput.placeholder = t.searchPlaceholder;
+
+        // Sidebar Links
+        const links = document.querySelectorAll('#sidebar .nav-link-custom');
+        if (links.length >= 8) {
+            links[0].innerHTML = t.tabDashboard;
+            links[1].innerHTML = t.tabAdmins;
+            links[2].innerHTML = t.tabAnalytics;
+            links[3].innerHTML = t.tabSettings;
+            links[4].innerHTML = t.tabSecurity;
+            links[5].innerHTML = t.tabFinance;
+            links[6].innerHTML = t.tabUsers;
+            links[7].innerHTML = t.tabAssets;
+        }
+
+        // Sidebar logout
+        const logoutBtn = document.querySelector('.sidebar-footer .nav-link-custom');
+        if (logoutBtn) logoutBtn.innerHTML = t.sidebarLogout;
+
+        // Stat Card/KPI Labels
+        const kpis = document.querySelectorAll('.kpi-card');
+        if (kpis.length >= 5) {
+            kpis[0].querySelector('.kpi-header h6').textContent = t.kpiRevenue;
+            kpis[1].querySelector('.kpi-header h6').textContent = t.kpiTransactions;
+            kpis[2].querySelector('.kpi-header h6').textContent = t.kpiActiveUsers;
+            kpis[3].querySelector('.kpi-header h6').textContent = t.kpiAssetsVal;
+            kpis[4].querySelector('.kpi-header h6').textContent = t.kpiSupportTickets;
+        }
+
+        // Chart Title
+        const cTitle = document.querySelector('.content-card .card-header h5');
+        if (cTitle) cTitle.innerHTML = `<i class='fas fa-chart-line'></i> ${t.chartTitle}`;
+
+        // Footer
+        const foot = document.querySelector('footer p');
+        if (foot) foot.textContent = t.footerText;
+    }
+
+    // ========== THEME TOGGLE ==========
+    function updateThemeUI() {
+        const isLight = document.body.classList.contains('light-mode');
+        const headerIcon = document.querySelector('#theme-toggle-btn i');
+        if (headerIcon) {
+            if (isLight) {
+                headerIcon.className = 'fas fa-sun';
+            } else {
+                headerIcon.className = 'fas fa-moon';
+            }
+        }
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('light-mode');
+        localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        updateThemeUI();
+    }
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateThemeUI();
+        document.getElementById('theme-toggle-btn')?.addEventListener('click', toggleTheme);
+
+        const langSelect = document.getElementById('lang-select');
+        if (langSelect) {
+            langSelect.value = superLang;
+            langSelect.addEventListener('change', (e) => translateSuperDashboard(e.target.value));
+        }
+        translateSuperDashboard(superLang);
+    });
+    
+    document.querySelectorAll(".chart-btn").forEach(btn => {
+        btn.addEventListener("click", function() {
+            document.querySelectorAll(".chart-btn").forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
+        });
+    });
+
+    // Revenue Trend Chart
+    const ctx = document.getElementById('revenueTrendChart');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Revenue (Br)',
+                    data: [1200000, 1400000, 1800000, 1600000, 2000000, 2100000],
+                    borderColor: '#FFB347',
+                    backgroundColor: 'rgba(255, 179, 71, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: { responsive: true, maintainAspectRatio: true }
+        });
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
